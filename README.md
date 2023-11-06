@@ -15,5 +15,6 @@ Decidimos pelo módulo do discente e os seguintes casos de uso:
 - Autenticação
 - Aplicar para uma bolsa de monitoria/extensão/auxílio
 - Realizar trancamento do curso
+- Consultar Histórico Escolar
 
 .
