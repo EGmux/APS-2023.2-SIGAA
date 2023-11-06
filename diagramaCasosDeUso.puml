@@ -9,5 +9,3 @@ note right of (Autenticação) : nesse caso o ator é o usuário do sistema
 :Servidor: <-up- (Aplicar para uma bolsa de monitoria/extensão/auxílio)
 :Discente: -right-> (Realizar trancamento do curso)
 @enduml
-
-@enduml
