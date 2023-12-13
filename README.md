@@ -17,4 +17,10 @@ Decidimos pelo módulo do discente e os seguintes casos de uso:
 - Realizar trancamento do curso
 - Consultar Histórico Escolar
 
+
+## Executar o projeto
+No diretório raiz, executar o comando:
+~~~bash
+./mvnw spring-boor:run
+~~~
 .
