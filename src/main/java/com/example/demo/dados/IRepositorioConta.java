@@ -1,6 +1,7 @@
-package com.example.demo.dados;
+ package com.example.demo.dados;
 
 import com.example.demo.negocio.Conta;
+
 
 public interface IRepositorioConta {
 
