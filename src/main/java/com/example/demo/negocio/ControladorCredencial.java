@@ -10,15 +10,16 @@ public class ControladorCredencial {
 
     @Autowired
     private  CadastroCredencial cadastroCredencial;
+    @Autowired
+    private AdaptardorCredencial adaptadorCredencial;
+    
 
-   
     private Iterable<Credencial> credenciais;
+
  
     public boolean verificarCredencial(Credencial credencial){
 
         credenciais = cadastroCredencial.getAll();
-
-        System.out.println(credenciais);
 
 
         for (Credencial elm : credenciais) {
@@ -42,5 +43,13 @@ public class ControladorCredencial {
     public Iterable<Credencial> getAllCredentials(){
         return cadastroCredencial.getAll();
     }
+
+    public Credencial adaptarCredencial (Email username, String password){
+        return adaptadorCredencial.adaptarCredencial(username, password);
+    }
+
+    //public Credencial adapterEmailToCredencial (String email){
+    //    return 
+    //}
     
 }

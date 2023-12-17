@@ -38,4 +38,8 @@ public class Fachada {
     public Iterable<Credencial> getAllCredentials(){
         return controladorCredencial.getAllCredentials();
     }
+
+    public Credencial adaptarCredencial(Email username, String password){
+        return controladorCredencial.adaptarCredencial(username, password);
+    }
 }
