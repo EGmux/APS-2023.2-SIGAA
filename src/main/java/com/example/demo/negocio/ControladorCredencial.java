@@ -5,21 +5,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+
 @Component
 public class ControladorCredencial {
 
     @Autowired
-    private  CadastroCredencial cadastroCredencial;
+    private  ControladorCadastroCredencial cadastroCredencial;
     @Autowired
     private AdaptardorCredencial adaptadorCredencial;
     
 
+
     private Iterable<Credencial> credenciais;
 
  
-    public boolean verificarCredencial(Credencial credencial){
+    public boolean verificarCredencial(Credencial credencial, String banco_dados){
 
-        credenciais = cadastroCredencial.getAll();
+        credenciais = cadastroCredencial.getAll(banco_dados);
 
 
         for (Credencial elm : credenciais) {
@@ -35,13 +37,13 @@ public class ControladorCredencial {
         
     }
 
-    public void inserir(Credencial credencial){
+    public void inserir(Credencial credencial, String banco_dados){
 
-        cadastroCredencial.inserir(credencial);
+        cadastroCredencial.inserir(credencial, banco_dados);
     }
 
-    public Iterable<Credencial> getAllCredentials(){
-        return cadastroCredencial.getAll();
+    public Iterable<Credencial> getAllCredentials(String banco_dados){
+        return cadastroCredencial.getAll(banco_dados);
     }
 
     public Credencial adaptarCredencial (Email username, String password){

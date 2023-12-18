@@ -7,39 +7,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class Fachada {
 
-    @Autowired
-    private ControladorCliente controladorCliente;
-    @Autowired
-    private ControladorConta controladorConta;
+    private String banco_dados = "SQL";
+
+    
     @Autowired
     private ControladorCredencial controladorCredencial;
 
-    public void inserirCliente(Cliente cliente) {
-        controladorCliente.inserir(cliente);
-    }
-
-    public Iterable<Cliente> getAllClientes() {
-        return controladorCliente.getAll();
-    }
-
-    public void inserirConta(Conta conta) {
-        controladorConta.inserir(conta);
-    }
-
 
     public boolean autenticarCredencial(Credencial credencial){
-        return controladorCredencial.verificarCredencial(credencial);
+        return controladorCredencial.verificarCredencial(credencial, banco_dados);
     }
 
     public void inserirCredencial(Credencial credencial){
-        controladorCredencial.inserir(credencial);
+        controladorCredencial.inserir(credencial, banco_dados);
     }
 
     public Iterable<Credencial> getAllCredentials(){
-        return controladorCredencial.getAllCredentials();
+        return controladorCredencial.getAllCredentials(banco_dados);
     }
 
     public Credencial adaptarCredencial(Email username, String password){
         return controladorCredencial.adaptarCredencial(username, password);
     }
+
 }
