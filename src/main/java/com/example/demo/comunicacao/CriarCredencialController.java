@@ -17,6 +17,7 @@ public class CriarCredencialController {
     @Autowired
     private Fachada fachada;
 
+
     @GetMapping("/credenciais")
     public String getCredenciasi(Model model){
         model.addAttribute("criarCredenciais", fachada.getAllCredentials());

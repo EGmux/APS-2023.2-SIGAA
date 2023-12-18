@@ -3,12 +3,17 @@ package com.example.demo.negocio;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
+
+@Document
 @Entity
 public class Credencial {
     
     @Id
     private String user;
+
+    
     private String senha;
 
     
