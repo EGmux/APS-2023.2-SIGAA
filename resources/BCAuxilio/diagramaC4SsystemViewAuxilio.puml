@@ -1,0 +1,78 @@
+@startuml C4_Elements
+!include <C4/C4_Container>
+
+Person(aluno4, "Aluno")
+Person(proaes4, "PROAES")
+
+AddRelTag("u1d", $textColor="blue", $lineColor="blue", $lineStyle = DashedLine())
+AddRelTag("u1", $textColor="blue", $lineColor="blue")
+AddRelTag("u2d", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+AddRelTag("u2", $textColor="orange", $lineColor="orange")
+AddRelTag("u3d", $textColor="green", $lineColor="green", $lineStyle = DashedLine())
+AddRelTag("u3", $textColor="green", $lineColor="green")
+AddRelTag("u4d", $textColor="purple", $lineColor="purple", $lineStyle = DashedLine())
+AddRelTag("u4", $textColor="purple", $lineColor="purple")
+AddRelTag("u5d", $textColor="red", $lineColor="red", $lineStyle = DashedLine())
+AddRelTag("u5", $textColor="red", $lineColor="red")
+
+Container(spadis, "SPA-Perfil-discente")
+Container(spapro, "SPA-Perfil-PROAES")
+Container(resource, "URL-Externa")
+Container(resource2, "Arquivo")
+ContainerDb(db, "DB", "", "")
+Container(md, "ui-features-auxilio", "", "")
+System_Boundary(c3,Modulo auxilio){
+
+System(statusSistema4, "Pedidos")
+System(notificacaosSistema4, "Notificação")
+System(descricaoSistema4, "Detalhes")
+
+' System(regrasNegocioSistema, "Regras de negócio")
+System(filtragemSistema4, "Filtragem")
+System(consultaSistemas4, "Consultas")
+System(linkSistema4, "Links")
+System(formularioSistema4, "Formularios")
+System(downloadSistema4, "Downloads")
+System(newsSistema4, "News")
+}
+'Solicitar bolsa fora de periodo usual/pedido emergencial
+Rel(aluno4, spadis, "ponto de entrada do sistema")
+Rel(spadis, md, "solicitar pedido de auxílio emergencial", "", $tags="u1")
+Rel(md, formularioSistema4,"#1consulta", $tags="u1")
+Rel(formularioSistema4, db,"#2salva aplicacao", $tags="u1")
+Rel(db, notificacaosSistema4,"#3novo pedido", $tags="u1")
+Rel(db, newsSistema4,"#3novo acompanhamento", $tags="u1")
+Rel(db, notificacaosSistema4,"#4solicita",$tags="u1")
+Rel(notificacaosSistema4, spapro,"#5notifica",$tags="u1")
+Rel(spapro, proaes4,"#6recebe",$tags="u1")
+
+'consultar ementas de bolsas disponíveis
+Rel(spadis, md, "consulta", "bolsas de auxilio", $tags="u3")
+Rel(md, consultaSistemas4,"#1consulta", $tags="u3")
+Rel(filtragemSistema4, consultaSistemas4,"#1.1filtra", $tags="u3d")
+Rel(descricaoSistema4, consultaSistemas4,"#1.1detalha", $tags="u3d")
+Rel(linkSistema4, consultaSistemas4,"#1.1detalha", $tags="u3d")
+Rel(linkSistema4, resource,"#1.1atalho", $tags="u3d")
+Rel(downloadSistema4, consultaSistemas4,"#1.1detalha", $tags="u3d")
+Rel(downloadSistema4, resource2,"#1.1.fornece", $tags="u3d")
+Rel(consultaSistemas4, db,"#2acessa", $tags="u3")
+Rel(db, consultaSistemas4,"#3disponibiliza", $tags="u3")
+
+'aplicar para bolsa/revisão de indeferimento
+Rel(spadis, md,"solicitar" ,"aplicacao bolsa, revisão de pedidos indeferidos, atraso na entrega de documentos", $tags="u4")
+Rel(md, formularioSistema4,"#1preenche", $tags="u4")
+Rel(formularioSistema4, db,"#2salva aplicacao", $tags="u4")
+Rel(db, notificacaosSistema4,"#3informa PROAES", $tags="u4")
+Rel(db, statusSistema4,"#4novo pedido criado", $tags="u4")
+Rel(notificacaosSistema4, spapro,"$5notifica", $tags="u4")
+Rel(spapro, proaes4,"#6recebe", $tags="u4")
+'
+'acompanhar pedidos
+Rel(spadis, md, "acompanhar status", $tags="u5")
+Rel(md, notificacaosSistema4, "#1acompanha", $tags="u5")
+Rel(notificacaosSistema4, db,"#2requisita", $tags="u5")
+Rel(db, notificacaosSistema4,"#3disponibilza", "",$tags="u5")
+Rel(newsSistema4,notificacaosSistema4,"#5fornece", $tags="u3d")
+
+
+@enduml
