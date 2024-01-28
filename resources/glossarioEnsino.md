@@ -41,3 +41,4 @@ tranferencia interna:o aluno trocar de curso na instituição que está vinculad
 transferencia externa: o aluno cursar o atual curso em outra instituição
 integralização: tempo máximo que o aluno tem para terminar o curso
 blocado:= termo usado quando o aluno paga as cadeiras do período esperado de acordo com a grade curricular do curso
+discente:= termo usado para indicar qualquer persona que um aluno venha ter durante o período de graduação
