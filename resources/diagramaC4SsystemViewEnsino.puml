@@ -13,3 +13,17 @@ Container(spadis, "SPA-Perfil-discente")
 ContainerDb(db, "DB", "", "")
 Container(resource, "arquivo", "", "")
 Container(md, "ui-features-discente", "", "")
+System_Boundary(c1,Módulo Ensino){
+
+System(statusSistema, "Pedidos")
+System(notificacaoSistema, "Notificação")
+System(descricaoSistema, "Detalhes")
+
+' System(regrasNegocioSistema, "Regras de negócio")
+System(filtragemSistema, "Filtragem")
+System(consultaSistemas, "Consultas")
+System(linksSistema, "Links")
+System(formulariosSistema, "Formularios")
+System(downloadsSistema, "Downloads")
+System(newsSistema, "News")
+}
