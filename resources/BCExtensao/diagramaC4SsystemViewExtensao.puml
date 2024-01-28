@@ -3,26 +3,24 @@
 
 Person(membrosDeProjeto, "Membro de projeto")
 Person(liderDeProjeto, "Lider de projeto")
-Person(bolsista, "Bolsista")
 Person(aluno, "Aluno")
 
-AddRelTag("u1d", $textColor="black", $lineColor="blue", $lineStyle = DashedLine())
-AddRelTag("u1", $textColor="black", $lineColor="blue")
-AddRelTag("u2d", $textColor="black", $lineColor="orange", $lineStyle = DashedLine())
-AddRelTag("u2", $textColor="black", $lineColor="orange")
-AddRelTag("u3d", $textColor="black", $lineColor="green", $lineStyle = DashedLine())
-AddRelTag("u3", $textColor="black", $lineColor="green")
-AddRelTag("u4d", $textColor="black", $lineColor="purple", $lineStyle = DashedLine())
-AddRelTag("u4", $textColor="black", $lineColor="purple")
-AddRelTag("u5d", $textColor="black", $lineColor="red", $lineStyle = DashedLine())
-AddRelTag("u5", $textColor="black", $lineColor="red")
+AddRelTag("u1d", $textColor="blue", $lineColor="blue", $lineStyle = DashedLine())
+AddRelTag("u1", $textColor="blue", $lineColor="blue")
+AddRelTag("u2d", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+AddRelTag("u2", $textColor="orange", $lineColor="orange")
+AddRelTag("u3d", $textColor="green", $lineColor="green", $lineStyle = DashedLine())
+AddRelTag("u3", $textColor="green", $lineColor="green")
+AddRelTag("u4d", $textColor="purple", $lineColor="purple", $lineStyle = DashedLine())
+AddRelTag("u4", $textColor="purple", $lineColor="purple")
+AddRelTag("u5d", $textColor="red", $lineColor="red", $lineStyle = DashedLine())
+AddRelTag("u5", $textColor="red", $lineColor="red")
 
 Container(spadis, "SPA-Perfil-discente")
 Container(spadoc, "SPA-Perfil-docente")
 ContainerDb(db, "DB", "", "")
-Container(resource, "arquivo", "", "")
-Container(md, "ui-features-discente", "", "")
-System_Boundary(c1,Módulo Ensino){
+Container(md, "ui-features-extensao", "", "")
+System_Boundary(c2,Modulo Extensao){
 
 System(statusSistema, "Pedidos")
 System(notificacaoSistema, "Notificação")
@@ -36,38 +34,31 @@ System(formulariosSistema, "Formularios")
 System(downloadsSistema, "Downloads")
 System(newsSistema, "News")
 }
-'acesso e download  das notas
+'consultar projetos de extensao/homepage/lates/descricao que esteja ou nao associado, descricao
 Rel(aluno, spadis, "ponto de entrada do sistema")
-Rel(spadis, md, "acesso e download de arquivos")
-Rel(md, consultaSistemas,"consulta", "comprovante de matrícula,cronograma de cadeiras,sala de aula e horários, histórico escolar, declaração de vínculo, calendário acadêmico", $tags="u1")
-Rel(consultaSistemas, db,"acesso a documento", $tags="u1")
-Rel(db, consultaSistemas,"disponibiliza documento", $tags="u1")
-Rel(consultaSistemas, downloadsSistema,"download do documento", $tags="u1d")
-Rel(downloadsSistema, resource,"produz", $tags="u1")
+Rel(spadis, md, "consulta", "projetos de extensão que está ou não associado, lates, hoempage, descricao", $tags="u1")
+Rel(md, consultaSistemas,"#1consulta", $tags="u1")
+Rel(filtragemSistema, consultaSistemas,"#filtra", $tags="u1")
+Rel(consultaSistemas, db,"#3acessa", $tags="u1")
+Rel(db, consultaSistemas,"#4disponibiliza", $tags="u1")
 
-'matricula nas cadeiras
-Rel(spadis, md, "efetuar procedimentos de matricula")
-Rel(md, consultaSistemas,"consulta de cadeiras para realizar matrícula", $tags="u2")
-Rel(filtragemSistema, consultaSistemas,"filtrar cadeiras", $tags="u2d")
-Rel(descricaoSistema, consultaSistemas,"detalhes da cadeira", $tags="u2d")
-Rel(consultaSistemas, formulariosSistema,"confirmar cadeiras", $tags="u2")
-Rel(formulariosSistema, db,"registrar cadeiras", $tags="u2")
-Rel(db, notificacaoSistema,"confirmar sucesso na matricula", $tags="u2")
-Rel(notificacaoSistema, statusSistema,"informar status do processo", $tags="u2")
+'aplicar/sair/review/solicitar bolsa para projetos de extensão
+Rel(spadis, md, "aplicacao/saída/review/bolsa no projeto de extensao", $tags="u2")
+Rel(md, formulariosSistema,"#1preenche", $tags="u2")
+Rel(formulariosSistema, db,"#2salva aplicacao", $tags="u2")
+Rel(db, notificacaoSistema,"#3informa lider de projeto", $tags="u2")
+Rel(db, statusSistema,"#4novo pedido criado", $tags="u2")
+Rel(notificacaoSistema, spadoc,"$5notifica", $tags="u2")
+Rel(spadoc, liderDeProjeto,"#6recebe notificacao", $tags="u2")
+Rel(spadoc, membrosDeProjeto,"#6recebe notificacao", $tags="u2d")
 
-'quando terá availação, faltas etc
-Rel(spadis, md, "notícias de informações pertinentes")
-Rel(md, consultaSistemas,"consulta de cadeiras para realizar matrícula", $tags="u2")
-Rel(md, newsSistema,"informar sobre avaliacoes", "faltas, avaliações",$tags="u3")
-Rel(notificacaoSistema,newsSistema,"programar notificação", $tags="u3d")
-
-'consulta de informações relevantes ao curso
-Rel(spadis, md, "consultas relevantes")
-Rel(md, consultaSistemas,"consultas", "cursos, cadeiras obrigatórias, eletivas, ch, relacação de depedência entre cadeiras",$tags="u5")
-Rel(filtragemSistema,consultaSistemas,"filtrar" ,$tags="u5d")
-Rel(descricaoSistema,consultaSistemas,"detalhar" ,$tags="u5d")
-Rel(consultaSistemas,db,"pedido de acesso" ,$tags="u5")
-Rel(db,consultaSistemas,"acesso obtido" ,$tags="u5")
+'acompanhar pedidos
+Rel(spadis, md, "acompanhar status", $tags="u3")
+Rel(md, statusSistema, "#1acompanha", $tags="u3")
+Rel(statusSistema, db,"#2requisita", $tags="u3")
+Rel(db, statusSistema,"#3disponibilza", "",$tags="u3")
+Rel(notificacaoSistema,statusSistema,"#4programar", $tags="u3d")
+Rel(newsSistema,statusSistema,"#5fornece", $tags="u3d")
 
 
 @enduml
