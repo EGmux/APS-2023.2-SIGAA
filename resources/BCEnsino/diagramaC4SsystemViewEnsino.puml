@@ -3,9 +3,6 @@
 
 Person(aluno, "Aluno")
 
-Person(membrosDeProjeto, "Membro de projeto")
-Person(liderDeProjeto, "Lider de projeto")
-Person(bolsista, "Bolsista")
 Person(aluno, "Aluno")
 
 AddRelTag("u1d", $textColor="blue", $lineColor="blue", $lineStyle = DashedLine())
