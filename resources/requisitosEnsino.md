@@ -1,8 +1,12 @@
 glossário:
     atores:= personas que interagem com o sistema de alguma maneira
+
     descricao:=o que aquela funcionalidade deve permitir em linguagem natural
+
     continuacao:=personas responsáveis por progredir com o fluxo da funcionalidade
+
     output:saída do sistema
+
     limitacoes:o que é válido para qualquer fluxo daquela funcionalidade sempre
 input não foi mencionado visto que é parte da UI e UX, pode ser abstraído no momento
 
