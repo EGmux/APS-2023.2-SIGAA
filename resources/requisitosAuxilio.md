@@ -19,11 +19,11 @@ limitacoes: o aluno deve ser de baixa renda comprovadamente
 
 Filtrar bolsas de auxílio disponíveis por algum critério
 
-atores: aluno
-descricao: apresenta ementa de bolsas para consulta e baixar
-continuacao: aluno
-output:disponibilza pagin html
-limitacoes: apenas de bolsas vigentes
+    atores: aluno
+    descricao: apresenta ementa de bolsas para consulta e baixar
+    continuacao: aluno
+    output:disponibilza pagin html
+    limitacoes: apenas de bolsas vigentes
 
 Aplicar para bolsas de auxilio
 
