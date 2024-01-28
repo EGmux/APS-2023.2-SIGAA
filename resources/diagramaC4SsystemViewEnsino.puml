@@ -27,3 +27,11 @@ System(formulariosSistema, "Formularios")
 System(downloadsSistema, "Downloads")
 System(newsSistema, "News")
 }
+'acesso e download  das notas
+Rel(aluno, spadis, "ponto de entrada do sistema")
+Rel(spadis, md, "acesso e download de arquivos")
+Rel(md, consultaSistemas,"consulta", "comprovante de matrícula,cronograma de cadeiras,sala de aula e horários, histórico escolar, declaração de vínculo, calendário acadêmico", $tags="u1")
+Rel(consultaSistemas, db,"acesso a documento", $tags="u1")
+Rel(db, consultaSistemas,"disponibiliza documento", $tags="u1")
+Rel(consultaSistemas, downloadsSistema,"download do documento", $tags="u1d")
+Rel(downloadsSistema, resource,"produz", $tags="u1")
