@@ -44,3 +44,8 @@ Rel(consultaSistemas, formulariosSistema,"confirmar cadeiras", $tags="u2")
 Rel(formulariosSistema, db,"registrar cadeiras", $tags="u2")
 Rel(db, notificacaoSistema,"confirmar sucesso na matricula", $tags="u2")
 Rel(notificacaoSistema, statusSistema,"informar status do processo", $tags="u2")
+'quando terá availação, faltas etc
+Rel(spadis, md, "notícias de informações pertinentes")
+Rel(md, consultaSistemas,"consulta de cadeiras para realizar matrícula", $tags="u2")
+Rel(md, newsSistema,"informar sobre avaliacoes", "faltas, avaliações",$tags="u3")
+Rel(notificacaoSistema,newsSistema,"programar notificação", $tags="u3d")
