@@ -1,0 +1,29 @@
+@startuml C4_Elements
+!include <C4/C4_Container>
+
+Person(aluno, "Aluno")
+Person(professor, "Professor")
+Person(membrosDeProjeto, "Membro de projeto")
+Person(liderDeProjeto, "Lider de projeto")
+Person(proaes, "PROAES")
+Person(monitor, "Monitor")
+Person(bolsista, "Bolsista")
+
+Rel(aluno, containerAlias, "Label", "Optional Technology")
+
+Container(spadis, "SPA-Perfil-discente")
+Container(spadoc, "SPA-Perfil-docente")
+
+Container(statusSistema, "Pedidos")
+Container(notificacaoSistema, "Notificação")
+Container(descricaoSistema, "Detalhes")
+Container(regrasNegocioSistema, "Regras de negócio")
+Container(filtragemSistema, "Filtragem")
+Container(linksSistemas, "Links")
+Container(formulariosSistemas, "Formularios")
+Container(downloadsSistemas, "Downloads")
+Container(newsSistemas, "News")
+Container(ensino, "Módulo Ensino")
+
+
+@enduml
