@@ -9,3 +9,7 @@ AddRelTag("u4d", $textColor="black", $lineColor="purple", $lineStyle = DashedLin
 AddRelTag("u4", $textColor="black", $lineColor="purple")
 AddRelTag("u5d", $textColor="black", $lineColor="red", $lineStyle = DashedLine())
 AddRelTag("u5", $textColor="black", $lineColor="red")
+Container(spadis, "SPA-Perfil-discente")
+ContainerDb(db, "DB", "", "")
+Container(resource, "arquivo", "", "")
+Container(md, "ui-features-discente", "", "")
