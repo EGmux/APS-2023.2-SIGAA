@@ -1,0 +1,6 @@
+!$allelems = {"modelrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/resources", "modelrepofile": "./modelrepo_json.puml", "elements": []}
+
+!$allrelations = {"modelrelationrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/resources", "modelrelationrepofile": "./modelrepo_json.puml", "relations": []}
+
+!$allconnections = {"modelconnectionrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/resources", "modelconnectionrepofile": "./modelrepo_json.puml", "connections": []}
+
