@@ -1,0 +1,25 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+PUMLAReUsableAsset("Casos de uso para módulo Ensino", useCasesEnsino,rectangle )
+
+
+    PUMLARUAInternals() {
+    artifact  usecaseEnsino{
+    usecase    (Download e Consulta de notas) as   u1
+    usecase    (Realizar Matrícula)  as  u2
+    usecase    (Acesso  ao  histórico escolar)  as u3
+    usecase    (Saber quando terá uma avaliação)  as u4
+    usecase    (Quantas faltas antes de reprovar)  as  u5
+    usecase    (Cronograma)  as  u6
+    usecase    (Sala de aula  e horário das cadeiras)  as u7
+    usecase    (Trancar o  curso) as u8
+    usecase    (Emitir declaração de vínculo) as  u9
+    usecase    (Consultar calendário  acadêmico) as u10
+    }
+  }
+
+PUMLAReUsableAssetFinalize()
+@enduml

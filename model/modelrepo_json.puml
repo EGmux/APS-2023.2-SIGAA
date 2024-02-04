@@ -1,0 +1,13 @@
+!$allelems = {"modelrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelrepofile": "./modelrepo_json.puml", "elements": [{"name": "usecaseMonitoria", "alias": "usecaseMonitoria", "type": "PUMLAPutElement(", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/", "filename": "usecaseMonitoria.puml"},
+ {"name": "Casos de uso para m\u00f3dulo  Aux\u00edlio", "alias": "useCasesAuxilio", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecaseMAuxilio.puml"},
+ {"name": "Casos de uso para m\u00f3dulo Extens\u00e3o", "alias": "useCasesExtensao", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecaseMExtensao.puml"},
+ {"name": "Casos de uso para m\u00f3dulo Ensino", "alias": "useCasesEnsino", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecasesMEnsino.puml"},
+ {"name": "Casos de uso para m\u00f3dulo Monitoria", "alias": "useCasesMonitoria", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecaseMMonitoria.puml"},
+ {"name": "  ", "alias": "docente", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "docente.puml"},
+ {"name": " ", "alias": "discente", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "discente.puml"},
+ {"name": "  ", "alias": "proaes", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "proaes.puml"}]}
+
+!$allrelations = {"modelrelationrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelrelationrepofile": "./modelrepo_json.puml", "relations": []}
+
+!$allconnections = {"modelconnectionrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelconnectionrepofile": "./modelrepo_json.puml", "connections": []}
+

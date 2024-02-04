@@ -1,0 +1,18 @@
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(useCasesEnsino)
+PUMLAPutElement(discente)
+discente<<Estudante>>
+left to right direction
+discente  ---d->  u1
+discente ---d-> u2
+discente ----d-> u3
+discente ---d-> u4
+discente ----d-> u5
+discente ---d-> u6
+discente ----d-> u7
+discente ---d-> u8
+discente ---d-> u9
+discente ---d-> u10
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+!include pumla_macros.puml
+!include modelrepo_json.puml
+:Discente: 
+' PUMLAPutElement(useCasesEnsino)
+' PUMLAPutElement(useCasesExtensao)
+' PUMLAPutElement(useCasesMonitoria)
+PUMLAPutElement(useCasesEnsino)
+left to right direction
+Discente  ---d->  u1
+Discente ---d-> u2
+Discente ----d-> u3
+Discente ---d-> u4
+Discente ----d-> u5
+Discente ---d-> u6
+Discente ----d-> u7
+Discente ---d-> u8
+Discente ---d-> u9
+Discente ---d-> u10
+' Discente  ---d->  u11
+' Discente ----d-> u12
+' Discente ----d-> u13
+' Discente ----d-> u14
+' Discente ----d-> u15
+' Discente ----d-> u16
+' Discente ----d-> u17
+' Discente ----d-> u18
+' Discente ----d-> u19
+' Discente---u->  u21
+' Discente --u-> u22
+' Discente --u-> u23
+' Discente --u-> u24
+' Discente --u-> u25
+' Discente --u-> u26
+' Discente --u-> u27
+' Discente --u-> u28
+' Discente --u-> u29
+' Discente  --u->  u30
+' Discente ---u-> u31
+' Discente ---u-> u32
+' Discente ---u-> u33
+' Discente ---u-> u34
+' Discente ---u-> u35
+' Discente ---u--> u36
+' Discente ---u-> u37
+' Discente ---u-> u38
+@enduml

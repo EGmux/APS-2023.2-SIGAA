@@ -1,0 +1,21 @@
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(useCasesExtensao)
+PUMLAPutElement(discente)
+PUMLAPutElement(docente)
+discente<<Pesquisador>>
+docente<<Lider de Projeto>>
+left to right direction
+discente  ---d->  u11
+discente ----d-> u12
+discente ----d-> u13
+discente ----d-> u14
+discente ----d-> u15
+discente ----d-> u16
+discente ----d-> u17
+discente ----d-> u18
+discente ----d-> u19
+u12  --u-> docente  : Decide aplicação
+u18  --u-> docente  : Autoriza/Rejeita  pedido
+@enduml
