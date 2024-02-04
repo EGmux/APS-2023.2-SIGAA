@@ -1,0 +1,23 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+PUMLAReUsableAsset("Casos de uso para módulo Monitoria", useCasesMonitoria,rectangle )
+
+
+    PUMLARUAInternals() {
+    artifact  usecaseMonitoria{
+      usecase    (Buscar projetos de monitoria) as   u21
+      usecase    (Aplicar para projetos de monitoria)  as  u22
+      usecase    (Gerenciar projetos de monitoria )  as u23
+      usecase    (Ver descrição de projetos de monitoria)  as u24
+      usecase    (Sair de um projeto de monitoria)  as  u25
+      usecase    (Preencher  relatório de monitoria)  as  u26
+      usecase    (Solicitar bolsa para  projeto de monitoria)  as u27
+      usecase    (Acesso a página da discplina/cronograma da turma que é monitor) as  u28
+      usecase    (Acompanhar status de pedido da aplicação) as  u29
+    }
+
+PUMLAReUsableAssetFinalize()
+@enduml

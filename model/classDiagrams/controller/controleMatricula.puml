@@ -1,0 +1,19 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("Controle Matricula", controleMatricula,class )
+
+class controleMatricula <<controller>>{
+      +consultarCurso() : void
+      +confirmarMatricula() : vod
+      +deteccaoChoqueHorario() : void
+      +credenciaisInvalidas() : void
+      +limiteTentativasAutenticacao() : void
+      +consultarDisciplinas() : void
+      +consultarTurma() : void
+      +realizarTrancamentoVinculo() : void
+  }
+
+PUMLAReUsableAssetFinalize()
+@enduml

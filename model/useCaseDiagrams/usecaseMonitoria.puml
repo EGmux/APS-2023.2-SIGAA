@@ -1,0 +1,23 @@
+'PUMLAMR
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(useCasesMonitoria)
+PUMLAPutElement(discente)
+PUMLAPutElement(docente)
+discente<<Monitor>>
+docente<<Professor>>
+left to right direction
+discente  -d->  u21
+discente -d-> u22
+discente -d-> u23
+discente -d-> u24
+discente -d-> u25
+discente -d-> u26
+discente -d-> u27
+discente -d-> u28
+discente -d-> u29
+u22  -u-> docente :  Decide aplicação
+u25  -u-> docente : Confirma saída
+u26  -u-> docente : Assina relatório
+@enduml

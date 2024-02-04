@@ -1,0 +1,34 @@
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(controleMatricula)
+PUMLAPutElement(telaRealizarMatricula)
+PUMLAPutElement(cadastroCurso)
+PUMLAPutElement(curso)
+PUMLAPutElement(repositorioCursos)
+PUMLAPutElement(turma)
+PUMLAPutElement(disciplina)
+PUMLAPutElement(matricula)
+PUMLAPutElement(repositorioTurmas)
+PUMLAPutElement(repositorioMatriculas)
+PUMLAPutElement(repositorioDisciplinas)
+PUMLAPutElement(cadastroTurma)
+PUMLAPutElement(cadastroMatricula)
+telaRealizarMatricula --> controleMatricula
+
+together{
+cadastroTurma <-up- controleMatricula
+cadastroDisciplina <-up- controleMatricula
+cadastroMatricula <-up- controleMatricula
+cadastroCurso <-up- controleMatricula
+}
+ cadastroCurso --o curso
+cadastroTurma --o turma
+cadastroDisciplina --o disciplina
+cadastroMatricula --o matricula
+
+repositorioMatriculas .up.> cadastroMatricula
+repositorioTurmas .up.> cadastroTurma
+repositorioCursos .up.> cadastroCurso
+repositorioDisciplinas .up.> cadastroDisciplina
+@enduml

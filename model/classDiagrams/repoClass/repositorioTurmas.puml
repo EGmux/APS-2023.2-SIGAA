@@ -1,0 +1,15 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("RepositorioTurmas", repositorioTurmas,class )
+
+class repositorioTurmas <<Service>>{
+  + inserir() : void
+  + alterar() : void
+  + consultar() : void
+  + remover() : void
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml

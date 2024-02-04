@@ -1,0 +1,12 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("CadastroDisciplina", cadastroDisciplina,class )
+
+
+class cadastroDisciplina <<entity collection>>{
+
+}
+PUMLAReUsableAssetFinalize()
+@enduml

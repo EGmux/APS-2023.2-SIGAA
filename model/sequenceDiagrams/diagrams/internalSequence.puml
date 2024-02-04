@@ -1,0 +1,26 @@
+'PUMLAMR
+'PUMLADYN
+@startuml
+' box 
+skinparam sequenceMessageAlign right
+skinparam style strictuml
+skinparam ParticipantPadding 75
+hide footbox
+actor discente
+activate discente
+boundary paginaMatricula
+control controleMatricula
+discente -> paginaMatricula ++ : realizarMatricula()
+paginaMatricula -> controleMatricula ++ : realizarMatricula()
+participant cadastroCurso <<entityCollection>>
+controleMatricula -> cadastroCurso ++ : consultarCurso()
+participant cadastroDisciplina <<entityCollection>>
+cadastroCurso --
+controleMatricula -> cadastroDisciplina ++ : consultarDisciplina()
+participant cadastroTurma <<entityCollection>>
+cadastroDisciplina --
+controleMatricula   -> cadastroTurma  ++ : consultarTurma()
+participant cadastroMatricula <<entityCollection>>
+cadastroTurma --
+controleMatricula -> cadastroMatricula  ++ : consultarMatricula()
+@enduml

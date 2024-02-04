@@ -1,0 +1,10 @@
+@startuml
+skinparam linetype polyline
+skinparam ParticipantPadding 75
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+!$PUMVarShowBodyInternals = %true()
+!$PUMVarShowBodyInternalsDyn = %true()
+PUMLAPutElement(internalSequence)
+
+@enduml

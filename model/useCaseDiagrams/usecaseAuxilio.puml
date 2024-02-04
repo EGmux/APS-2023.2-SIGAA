@@ -1,0 +1,23 @@
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(useCasesAuxilio)
+PUMLAPutElement(discente)
+PUMLAPutElement(proaes)
+discente<<Bolsista>>
+proaes<<Reitoria>>
+left to right direction
+discente  ->  u31
+discente  ->  u30
+discente ---d-> u32
+discente ----d-> u33
+discente ---d-> u34
+discente ----d-> u35
+discente ---d-> u36
+discente ----d-> u37
+discente ---d-> u38
+u30  --u->  proaes : Autoriza/Rejeita pedido
+u33  --u->  proaes :  Decide aplicação
+u36  --u->  proaes  :  Autoriza/Rejeita  pedido
+u37  --u->  proaes  :  Autoriza/Rejeita  pedido
+@enduml

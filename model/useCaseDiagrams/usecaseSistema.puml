@@ -1,0 +1,18 @@
+'PUMLAMR
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(useCasesSistema)
+PUMLAPutElement(discente)
+discente<<Usuário>>
+left to right direction
+discente  -d->  u39
+discente  -d->  u40
+discente -d-> u41
+discente -d-> u42
+discente -d-> u43
+discente -d-> u44
+discente -d-> u45
+discente -d-> u46
+discente -d-> u47
+@enduml

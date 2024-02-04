@@ -1,0 +1,23 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+PUMLAReUsableAsset("Casos de uso para módulo Extensão", useCasesExtensao,rectangle )
+
+
+    PUMLARUAInternals() {
+    artifact  usecaseExtensao{
+    usecase    (Buscar pro projetos de extensão) as u11
+    usecase    (Aplicar para projeto de extensão)  as  u12
+    usecase    (Ver projeto de extensão que está associado)  as u13
+    usecase    (Descrição de projeto de extensão)  as u14
+    usecase    (Sair de um projeto de extensão)  as  u15
+    usecase    (Acessar Lates de outros membros do projeto)  as  u16
+    usecase    (Fazer análise de um projeto de extensão)  as u17
+    usecase    (Solicitar bolsa para algum projeto de extensão vigente)  as u18
+    usecase    (Acompanhar status do período de aplicação) as  u19
+    }
+
+PUMLAReUsableAssetFinalize()
+@enduml

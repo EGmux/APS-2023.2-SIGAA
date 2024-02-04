@@ -1,0 +1,36 @@
+'PUMLAMR
+'PUMLAPARENT: tempSys
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+PUMLAReUsableAsset("Temperature Sensor A", tempSensorA, component, "<<block>>") {
+    PUMLARUAPutTaggedValues()
+
+    PUMLARUAInternals() {
+
+        component getSignal
+        component "AD conversion"
+        component "signal processing"
+
+        PUMLAPutInternalDynElement(internalSequence)
+    }
+}
+
+PUMLARUAAddTaggedValue("Vendor", "A GmbH")
+PUMLARUAAddTaggedValue("Arch Level", "1")
+
+
+PUMLARUAInterface("temp_dC", temp_dC_tempSensorA, "out")
+
+note as tn27
+    Temperature Sensor of company A.
+    Provides the temperature in degree
+    Celsius.
+end note
+
+PUMLARUADescr(tn27)
+
+PUMLAReUsableAssetFinalize()
+
+@enduml

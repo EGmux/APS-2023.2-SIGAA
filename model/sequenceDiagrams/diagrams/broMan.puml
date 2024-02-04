@@ -1,0 +1,19 @@
+'PUMLADYN
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+box 
+  participant "**Internal Sequence**" as mase
+' activate internalSequence
+' internalSequence->getSignal : start
+' activate getSignal
+' getSignal -> "AD conversion"
+' activate "AD conversion"
+' "AD conversion" -> "signal processing"
+' activate "signal processing"
+' return
+' return
+' return end
+end box
+@enduml

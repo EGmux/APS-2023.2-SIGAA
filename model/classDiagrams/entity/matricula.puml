@@ -1,0 +1,12 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("Matricula", matricula,class )
+
+class matricula <<entity>> {
+  - attribute() : int
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml

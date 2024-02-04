@@ -1,0 +1,12 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("paginaMatricula", paginaMatricula, boundary)
+
+    ' PUMLARUAInternals() {
+    '  ' rectangle  {
+    ' }
+
+PUMLAReUsableAssetFinalize()
+@enduml
