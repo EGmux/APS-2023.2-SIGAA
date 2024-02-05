@@ -13,7 +13,7 @@ PUMLAReUsableAsset("Casos de uso para módulo Ensino", useCasesEnsino,rectangle 
     usecase    (Acesso  ao  histórico escolar)  as u3
     usecase    (Saber quando terá uma avaliação)  as u4
     usecase    (Quantas faltas antes de reprovar)  as  u5
-    usecase    (Cronograma)  as  u6
+    usecase    (Acesso ao Cronograma)  as  u6
     usecase    (Sala de aula  e horário das cadeiras)  as u7
     usecase    (Trancar o  curso) as u8
     usecase    (Emitir declaração de vínculo) as  u9
