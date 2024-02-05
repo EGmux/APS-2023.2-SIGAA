@@ -10,11 +10,11 @@ PUMLAReUsableAsset("Casos de uso para módulo  Auxílio", useCasesAuxilio,rectan
     ' left to right direction
     artifact  usecaseAuxilio{
       usecase    (Solicitar bolsa auxílio fora do período de solicitação/pedido emergencial) as   u30
-      usecase    (Filtrar bolsas de auxílio  disponíveis)  as  u31
+      usecase    (Buscar por bolsas auxílio)  as  u31
       usecase    (Ver projetos de monitoria que está associado)  as u32
       usecase    (Aplicar para bolsa de auxílio)  as u33
       usecase    (Acompanhar status da aplicação)  as  u34
-      usecase    (Gerenciar bolsas vigentes)  as  u35
+      usecase    (Gerenciar bolsas auxílio)  as  u35
       usecase    (Solicitar extensão para entrega de algum documento)  as u36
       usecase    (Solicitar revisão de indeferimento de pedido) as  u37
       usecase    (Enviar documentos como parte da etapa de seleção) as  u38
