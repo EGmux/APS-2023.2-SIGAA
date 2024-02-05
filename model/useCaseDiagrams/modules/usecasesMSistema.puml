@@ -1,0 +1,24 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+
+PUMLAReUsableAsset("Casos de uso para módulo Sistema", useCasesSistema,rectangle )
+
+
+    PUMLARUAInternals() {
+    artifact  usecaseSistema{
+      usecase    (Troca de  senha) as   u39
+      usecase    (Autenticação via  provedor de serviços)  as  u40
+      usecase    (Colocar foto de perfil)  as u41
+      usecase    (Alterar dados cadastrais/pessais/bancários)  as u42
+      usecase    (Logar e deslogar)  as  u43
+      usecase    (Tema da UI dark/light)  as  u44
+      usecase    (Command pallete do SIGAA)  as u45
+      usecase    (Acessar notificações de subsistemas) as  u46
+      usecase    (Bug report) as u47
+    }
+  }
+
+PUMLAReUsableAssetFinalize()
+@enduml
