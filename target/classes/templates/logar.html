@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div th:if="${param.error}">
+        Invalid username or password.
+    </div>
+    <div>
+        <form action="/logar/autenticar" method="get">
+            <div><label for="username">Username </label><input name="username"></div>
+            <div><label for="password">Senha   </label><input name="password"></div>
+            <div><button type="submit">Sign in</button></div>
+            <div><label for="formato">Formato   </label><input type="radio" name="formato" value="user" checked>User
+            <input type="radio" name="formato" value="email">E-mail</div>
+            
+            
+        </form>
+    </div>
+    <div><a href="/credenciais">Registre-se</a></div>
+
+</body>
+</html>

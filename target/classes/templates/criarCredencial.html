@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Credenciais</title>
+</head>
+<body>
+
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Credencial</th>
+                    <th>Senha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="credencial: ${criarCredenciais}">
+                    <td th:text="${credencial.user}">Cliente:></td>
+                    <td th:text="${credencial.senha}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form action="/credenciais/inserir" method="get">
+            <div><label for="username">Username </label><input name="username"></div>
+            <div><label for="password">Password </label><input name="password"></div>
+            <div><button type="submit">Create</button></div>
+            
+        </form>
+    </div>
+    <div><a href="/logar">Realizar login</a></div>
+
+</body>
+</html>
