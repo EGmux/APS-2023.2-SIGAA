@@ -1,0 +1,14 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("Tela Realizar matrícula", telaRealizarMatricula,class )
+
+class telaRealizarMatricula{
+  +realizarMatricula() : void
+  + selecionarDisciplina() : void
+  + confirmarMatricula() : void
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml

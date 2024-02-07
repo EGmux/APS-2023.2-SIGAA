@@ -1,0 +1,21 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("turma", turma,class )
+
+class turma <<entity>>{
+  - vagas() : int
+  - obrigatoria() : boolean
+  - perfil() : char
+  - equivalencia() : List<int>
+  - horario() : char
+  - avaliacao() : char
+  - professor() : docente
+  - alunos() : List<alunos>
+  - notas() : List<notas>
+
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml

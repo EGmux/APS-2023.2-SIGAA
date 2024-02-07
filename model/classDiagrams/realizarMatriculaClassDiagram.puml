@@ -1,0 +1,15 @@
+@startuml
+!include ../pumla_macros.puml
+!include ../modelrepo_json.puml
+PUMLAPutElement(controleMatricula)
+PUMLAPutElement(telaRealizarMatricula)
+PUMLAPutElement(cadastroCurso)
+PUMLAPutElement(curso)
+PUMLAPutElement(repositorioCursos)
+PUMLAPutElement(turma)
+PUMLAPutElement(matricula)
+PUMLAPutElement(repositorioTurmas)
+PUMLAPutElement(repositorioMatriculas)
+PUMLAPutElement(cadastroTurma)
+PUMLAPutElement(cadastroMatricula)
+@enduml
