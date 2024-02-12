@@ -1,0 +1,12 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("CadastroMatricula", cadastroMatricula,class )
+
+class cadastroMatricula <<entity collection>>{
+  
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml

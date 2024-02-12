@@ -1,0 +1,14 @@
+'PUMLAMR
+@startuml
+!include ../../pumla_macros.puml
+!include ../../modelrepo_json.puml
+PUMLAReUsableAsset("curso", curso,class )
+
+class curso{
+  - nome : int
+  - departamento : int
+  - gradeCurricular : int
+}
+
+PUMLAReUsableAssetFinalize()
+@enduml
