@@ -20,6 +20,7 @@ in the institution. We choose the student module due to our familiarity with suc
 ### Apply for teaching assistant, student aid or research scholarships
 ### Deferral
 
+----------------------------------------------
 ## To run the project
 
 <!-- No diretório raiz, executar o comando: TODO: update this description to en-us --> 

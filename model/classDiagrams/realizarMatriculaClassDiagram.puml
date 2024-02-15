@@ -5,13 +5,13 @@ PUMLAPutElement(controleMatricula)
 PUMLAPutElement(telaRealizarMatricula)
 PUMLAPutElement(cadastroCurso)
 PUMLAPutElement(curso)
-PUMLAPutElement(repositorioCursos)
+' PUMLAPutElement(repositorioCursos)
 PUMLAPutElement(turma)
 PUMLAPutElement(disciplina)
 PUMLAPutElement(matricula)
-PUMLAPutElement(repositorioTurmas)
-PUMLAPutElement(repositorioMatriculas)
-PUMLAPutElement(repositorioDisciplinas)
+' PUMLAPutElement(repositorioTurmas)
+' PUMLAPutElement(repositorioMatriculas)
+' PUMLAPutElement(repositorioDisciplinas)
 PUMLAPutElement(cadastroTurma)
 PUMLAPutElement(cadastroMatricula)
 telaRealizarMatricula --> controleMatricula
@@ -27,8 +27,8 @@ cadastroTurma --o turma
 cadastroDisciplina --o disciplina
 cadastroMatricula --o matricula
 
-repositorioMatriculas .up.> cadastroMatricula
-repositorioTurmas .up.> cadastroTurma
-repositorioCursos .up.> cadastroCurso
-repositorioDisciplinas .up.> cadastroDisciplina
+' repositorioMatriculas .up.> cadastroMatricula
+' repositorioTurmas .up.> cadastroTurma
+' repositorioCursos .up.> cadastroCurso
+' repositorioDisciplinas .up.> cadastroDisciplina
 @enduml
