@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Credenciais</title>
+    <title>Sign Up</title>
 </head>
 <body>
 
@@ -12,20 +12,20 @@
         <h1> {{.title}} </h1>
         <ul>
             {{ range .users}}
-            <li>{{ .User}} - {{ .Senha}} </li>
+            <li>{{ .User}} - {{ .Password}} </li>
             {{end}}
 
         </ul>
        </div>
 
-        <form action="/credenciais/inserir" method="get">
+        <form action="/credentials/insert" method="get">
             <div><label for="username">Username </label><input name="username"></div>
             <div><label for="password">Password </label><input name="password"></div>
             <div><button type="submit">Create</button></div>
             
         </form>
     </div>
-    <div><a href="/login">Realizar login</a></div>
+    <div><a href="/login">Login</a></div>
 
 </body>
 </html>
