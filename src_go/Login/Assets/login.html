@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    
+    <div>
+        <form action="/login/auth" method="get">
+            <div><label for="username">Username </label><input name="username"></div>
+            <div><label for="password">Password   </label><input name="password"></div>
+            <div><button type="submit">Sign in</button></div>
+            <div><label for="format">Format   </label><input type="radio" name="format" value="user" checked>User
+            <input type="radio" name="format" value="email">E-mail</div>
+            
+            
+        </form>
+    </div>
+    <div><a href="/credentials">Sign In</a></div>
+
+</body>
+</html>
