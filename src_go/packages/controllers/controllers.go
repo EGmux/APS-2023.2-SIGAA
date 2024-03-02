@@ -10,12 +10,14 @@ import (
 // Create API endpoints for user signup and login
 func loginController() *gin.Engine {
 	r := gin.Default()
-	r.LoadHTMLGlob("VIEW/login")
+	// Necessary /*/* to mach the first set of dirs
+	// and the second to match the .html in each dir
+	r.LoadHTMLGlob("packages/login/*/*")
 	r.GET("/login", func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "login.html", gin.H{})
 	})
 
-	r.GET("/credentials", func(ctx *gin.Context) {
+	r.GET("/signUp", func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "signIn.html", gin.H{
 			"title": "User list",
 			"users": login.DB,
