@@ -23,6 +23,7 @@ type SQLRepoSitory struct {
 }
 
 // TODO: implement
+// If table exits return else create it
 func (repo *sqlrepo) CreateCourseRepo() bool {
 	return true
 }
