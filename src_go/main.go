@@ -1,6 +1,6 @@
 package main
 
-import "sigaa.ufpe/controllers"
+import "sigaa.ufpe/packages/controllers"
 
 var db = make(map[string]string)
 

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"sigaa.ufpe/login"
+	"sigaa.ufpe/packages/login"
 )
 
 // Create API endpoints for user signup and login
