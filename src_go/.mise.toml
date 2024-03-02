@@ -1,0 +1,21 @@
+[env]
+
+GOBIN = "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/src_go/artifacts//x86_64/"
+
+PGDATABASE = "testdb"
+
+[tools]
+go = '1.22.0'
+
+[tasks.build]
+description = 'Build go project'
+run = "go install"
+alias = 'build'
+
+[tasks.tidy]
+description = 'Tidy go projects'
+run = "go mod tidy"
+alias = 'tidy'
+
+
+
