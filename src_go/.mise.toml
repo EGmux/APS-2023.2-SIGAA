@@ -2,7 +2,12 @@
 
 GOBIN = "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/src_go/artifacts//x86_64/"
 
-PGDATABASE = "testdb"
+PGDATABASE = "sigaa"
+PGUSER = "egb2"
+PGHOST = "localhost"
+PGPASSWORD = "1234"
+PGPORT = "5432"
+
 
 [tools]
 go = '1.22.0'
