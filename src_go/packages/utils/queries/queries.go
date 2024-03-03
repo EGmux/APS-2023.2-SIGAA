@@ -23,8 +23,7 @@ func TableExists(name string) bool {
 	rows, err = conn.Query(
 		context.Background(),
 		// WARN: Remember to space end of each string
-		"SELECT * FROM information_tables "+
-			"WHERE table_name = 'credentials'",
+		"SELECT * FROM information_schema.tables WHERE table_name = '"+name+"'",
 	)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error in Query(TableExists)"+os.Getenv("PGDATABASE")+":"+name, err)
