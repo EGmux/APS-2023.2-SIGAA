@@ -57,6 +57,3 @@ func (repo *sqlrepo) CreateClassRepo() bool {
 func (repo *sqlrepo) CreateSubjectRepo() bool {
 	return true
 }
->>>>>>> 95fd195 (update(main.go): testcode)
-=======
->>>>>>> fe4aa66 (update(packages:abstractfactory): extract struct types to types.go)
