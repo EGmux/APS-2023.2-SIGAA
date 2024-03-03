@@ -11,9 +11,7 @@ type IAbstractFactory interface {
 	CreatePROAESRepo() bool
 	CreateProfessorRepo() bool
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 
 type SQLRepoSitory struct {
 	conn *pgxpool.Pool

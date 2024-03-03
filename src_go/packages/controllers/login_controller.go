@@ -18,11 +18,13 @@ func loginController() *gin.Engine {
 	})
 
 	r.GET("/signUp", func(ctx *gin.Context) {
-		ctx.HTML(http.StatusOK, "signIn.html", gin.H{
+		ctx.HTML(http.StatusOK, "signUp.html", gin.H{
 			"title": "User list",
 			"users": login.DB,
 		})
 	})
+
+	
 
 	return r
 }
