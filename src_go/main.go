@@ -10,10 +10,14 @@ var db = make(map[string]string)
 func main() {
 	println("test 🤛")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	queries.TableExists("credentials")
 =======
 	queries.CheckExistence("credentials")
 >>>>>>> 95fd195 (update(main.go): testcode)
+=======
+	queries.TableExists("credentials")
+>>>>>>> b52ed9c (chore(main.go): rename)
 	controllers.Set_Login_Controller()
 	// Listen and Server in 0.0.0.0:8080
 }
