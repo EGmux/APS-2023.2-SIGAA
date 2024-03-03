@@ -30,10 +30,10 @@ func loginController() *gin.Engine {
 		
 		if facade.IsValidUser(student.User, student.Password) {
             // Redirecionar para a página principal em caso de autenticação bem-sucedida
-            ctx.String(http.StatusOK, "O usuario esta autenticado")
+            ctx.Redirect(http.StatusMovedPermanently, "/mainMenu")
             return
         }
-		})
+	})
 
 	r.GET("/signUp", func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "signUp.html", gin.H{
@@ -51,6 +51,10 @@ func loginController() *gin.Engine {
 		facade.InsertUser(newStudent.User, newStudent.Password)
 
 		ctx.String(http.StatusOK, "Usuario adicionado com sucesso!")
+	})
+
+	r.GET("/mainMenu", func(ctx *gin.Context){
+		ctx.HTML(http.StatusOK, "mainMenu.html", gin.H{})
 	})
 
 	return r

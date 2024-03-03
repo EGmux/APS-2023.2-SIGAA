@@ -25,7 +25,7 @@ func CloseDB() {
 
 func IsValidUser(username, password string) bool {
     var storedPassword string
-    err := db.QueryRow(context.Background(), "SELECT password FROM students WHERE username = $1", username).Scan(&storedPassword)
+    err := db.QueryRow(context.Background(), "SELECT pswrd FROM students WHERE usr = $1", username).Scan(&storedPassword)
     if err != nil {
         if err == pgx.ErrNoRows {
             return false
@@ -37,13 +37,13 @@ func IsValidUser(username, password string) bool {
 
 func InsertUser(username string, password string) {
 	if !IsValidUser(username, password){
-		db.Exec(context.Background(), "INSERT INTO students (username, password) VALUES ($1, $2)", username, password)
+		db.Exec(context.Background(), "INSERT INTO students (usr, pswrd) VALUES ($1, $2)", username, password)
 	}
 	 
 }
 
 func GetAllUsers() ([]student.Student) {
-	rows, err := db.Query(context.Background(), "SELECT username, password FROM students")
+	rows, err := db.Query(context.Background(), "SELECT usr, pswrd FROM students")
 	if err != nil {
 		log.Fatal("Student_SQL.go : It was not possible to realize the querry")
 	}
