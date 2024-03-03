@@ -23,6 +23,7 @@ func (repo sqlrepo) CreateCredentialRepo() *sqlrepo {
 	if queries.TableExists("credentials") {
 		tableRows := queries.ReturnRows("credentials")
 	}
+	
 }
 
 // TODO: implement
