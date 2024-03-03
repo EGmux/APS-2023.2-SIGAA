@@ -11,7 +11,13 @@ type IAbstractFactory interface {
 	CreatePROAESRepo() bool
 	CreateProfessorRepo() bool
 }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ce465bc (update(packages:abstractfactory): extract struct types to types.go)
 
 type SQLRepoSitory struct {
 	conn *pgxpool.Pool
@@ -57,3 +63,9 @@ func (repo *sqlrepo) CreateClassRepo() bool {
 func (repo *sqlrepo) CreateSubjectRepo() bool {
 	return true
 }
+<<<<<<< HEAD
+=======
+>>>>>>> 95fd195 (update(main.go): testcode)
+=======
+>>>>>>> fe4aa66 (update(packages:abstractfactory): extract struct types to types.go)
+>>>>>>> ce465bc (update(packages:abstractfactory): extract struct types to types.go)
