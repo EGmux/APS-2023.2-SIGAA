@@ -141,8 +141,9 @@ func TableExists(name string) (bool, error) {
 }
 
 // Return all rows pertaining to table
-func returnRows(name string, tableaddr any) error {
-	err := pgxscan.Select(context.Background(), conn, tableaddr, `SELECT * FROM `+name)
+func returnRows(structaddr any, table string, id string, args ...string) error {
+	columns := convertToColumns(id, args...)
+	err := pgxscan.Select(context.Background(), conn, structaddr, `SELECT `+columns+` FROM `+table)
 	return err
 }
 
@@ -152,12 +153,27 @@ func ImportSQL(PATH string) (string, error) {
 	return string(out), err
 }
 
+// convert args to columns
+func convertToColumns(id string, args ...string) string {
+	columns := id
+	for _, arg := range args {
+		columns += " ," + arg + " "
+	}
+	return columns
+}
+
 // Insert rows into struct based on db query
-func InsertRows(structptr any, structname string, tag DBQUERY) error {
+func InsertIntoStruct(
+	structptr any,
+	tag DBQUERY,
+	table string,
+	id string,
+	args ...string,
+) error {
 	var err error
 	switch tag {
 	case SELECT_ALL:
-		err = returnRows(structname, structptr)
+		err = returnRows(structptr, table, id, args...)
 	}
 	return err
 }

@@ -120,7 +120,16 @@ func CloseConnectionDB(fn string, err error) {
 	)
 }
 
+// fn:name of function that called log
+func CreateCredentialRepo(fn string, err error) {
+	fmt.Fprintln(
+		os.Stderr,
+		"Call from",
+		fn,
+		":",
+		"Failed to retrieve Credential repo in",
 		os.Getenv("PGDATABASE"),
+		"ERROR",
 		err,
 	)
 }
