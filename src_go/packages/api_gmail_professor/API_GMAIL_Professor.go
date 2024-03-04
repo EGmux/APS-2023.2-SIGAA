@@ -9,6 +9,10 @@ import (
 	//"gopkg.in/gomail.v2" // Para enviar através de SMTP
 )
 
+type Professor_Email struct{
+	
+}
+
 func Send_Professor_email(subject string) {
 	// Crie um e-mail
 	e := email.NewEmail()

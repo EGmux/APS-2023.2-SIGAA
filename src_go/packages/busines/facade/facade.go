@@ -28,3 +28,4 @@ func InsertUser(username string, password string){
 func GetAllUsers() ([]student.Student){
 	return login_control.GetAllUsers()
 }
+
