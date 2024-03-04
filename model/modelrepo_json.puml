@@ -3,6 +3,7 @@
  {"name": "Casos de uso para m\u00f3dulo Monitoria", "alias": "useCasesMonitoria", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecaseMMonitoria.puml"},
  {"name": "Casos de uso para m\u00f3dulo  Aux\u00edlio", "alias": "useCasesAuxilio", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecaseMAuxilio.puml"},
  {"name": "Casos de uso para m\u00f3dulo Sistema", "alias": "useCasesSistema", "type": "rectangle", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./useCaseDiagrams/modules/", "filename": "usecasesMSistema.puml"},
+<<<<<<< HEAD
  {"name": "Temperature Sensor B", "alias": "tempSensorB", "type": "component", "stereotypes": ["block", "external System"], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./sequenceDiagrams/diagrams/", "filename": "tempSensorB.puml", "taggedvalues": [{"tag": "SysVariant", "values": ["B1", "B2"]},
  {"tag": "Vendor", "values": ["B Inc."]},
  {"tag": "Arch Level", "values": ["1"]}]},
@@ -28,6 +29,13 @@
  {"name": "paginaMatricula", "alias": "paginaMatricula", "type": "boundary", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./classes/boundary/", "filename": "paginaMatricula.puml"}]}
 
 !$allrelations = {"modelrelationrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelrelationrepofile": "./modelrepo_json.puml", "relations": [{"id": "REL#publicStateToIF", "start": "publicState", "end": "temp_dF_tempSensorB", "reltype": "..>", "reltxt": "provides", "techntxt": "", "path": "./sequenceDiagrams/diagrams/", "filename": "tempSensorB.puml"}]}
+=======
+ {"name": "  ", "alias": "docente", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "docente.puml"},
+ {"name": " ", "alias": "discente", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "discente.puml"},
+ {"name": "  ", "alias": "proaes", "type": "actor", "stereotypes": [], "ports": [], "typed_ifs": [], "kind": "static", "parent": "-", "instclassalias": "-", "path": "./actors/", "filename": "proaes.puml"}]}
+
+!$allrelations = {"modelrelationrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelrelationrepofile": "./modelrepo_json.puml", "relations": []}
+>>>>>>> 267cf135f71344166d3bdd6512a1aa4e8d0dd4b2
 
 !$allconnections = {"modelconnectionrepopath": "/home/enzogurgel/forge/projects/APS-2023.2-SIGAA/model", "modelconnectionrepofile": "./modelrepo_json.puml", "connections": []}
 
