@@ -1,0 +1,4 @@
+.env
+.mise.toml
+.nvim.lua
+set_env.go
