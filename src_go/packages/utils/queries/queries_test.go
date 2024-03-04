@@ -17,6 +17,7 @@ type debug struct {
 type QueriesTestSuite struct {
 	suite.Suite
 	conn *pgx.Conn
+<<<<<<< HEAD
 	repo []*TestRepo
 	opts debug
 }
@@ -25,6 +26,13 @@ type TestRepo struct {
 	Id     string `db:"id"`
 	Param1 string `db:"param1"`
 	Param2 string `db:"param2"`
+=======
+}
+
+type testRepo struct {
+	param1 string
+	param2 string
+>>>>>>> origin/main
 }
 
 func (suite *QueriesTestSuite) SetupSuite() {
@@ -38,8 +46,13 @@ func (suite *QueriesTestSuite) SetupTest() {
 		"id",
 		"serial primary key",
 		"empty",
+<<<<<<< HEAD
 		RowElem{"param1", "text"},
 		RowElem{"param2", "text"},
+=======
+		RowElem{"test", "text"},
+		RowElem{"test2", "text"},
+>>>>>>> origin/main
 	)
 	if err != nil {
 		logs.CreateTable("SetupTest", "empty", err)
@@ -48,6 +61,7 @@ func (suite *QueriesTestSuite) SetupTest() {
 }
 
 func (suite *QueriesTestSuite) TearDownTest() {
+<<<<<<< HEAD
 	var err error
 	// Clear the struct
 	suite.repo = nil
@@ -63,6 +77,16 @@ func (suite *QueriesTestSuite) TearDownTest() {
 		if err != nil {
 			logs.DropTable("TeardDownTest", "empty", err)
 		}
+=======
+	err := DropTable("empty")
+	if err != nil {
+		logs.DropTable("TearDownTest", "empty", err)
+	}
+	// Drops only if created in test
+	err = DropTable("test")
+	if err != nil {
+		logs.DropTable("TeardDownTest", "empty", err)
+>>>>>>> origin/main
 	}
 	os.Setenv("ON_ERROR_STOP", "false")
 }
@@ -75,6 +99,7 @@ func (suite *QueriesTestSuite) TearDownSuite() {
 }
 
 func (suite *QueriesTestSuite) TestTableExists() {
+<<<<<<< HEAD
 	justcreated := "empty"
 	exist, err := TableExists(justcreated)
 	if err != nil && suite.opts.showerrors {
@@ -144,6 +169,46 @@ func (suite *QueriesTestSuite) TestImportSQL() {
 	if !suite.Equal(errMessage, "") {
 		suite.T().Log("Importing an invalid .sql file must fail")
 	}
+=======
+	// // Just created table
+	// justcreated := "empty"
+	// suite.True(TableExists(justcreated))
+	// // Table that was never created
+	// suite.False(TableExists("shouldnotexist"))
+	// // Table that just had data insertion
+	// modifiedtable := justcreated
+	// InsertRow("id", "13", modifiedtable, RowElem{"test", "12"}, RowElem{"test2", "45"})
+	// suite.True(TableExists(modifiedtable))
+}
+
+// func (suite *QueriesTestSuite) TestReturnRows() {
+// 	// Must be zero rows returned
+// 	justcreated := "empty"
+// 	InsertRows()
+// 	rows = ReturnRows(justcreated)
+// 	rows.Close()
+// 	suite.Equal(rows.CommandTag().RowsAffected(), int64(0))
+// 	// Must be at most 1 row returned
+// 	modifiedtable := justcreated
+// 	InsertRow("id", "12", modifiedtable, RowElem{"test", "13"}, RowElem{"test2", "23"})
+// 	rows = ReturnRows(modifiedtable)
+// 	// Close tho rows so CommandTag can be read
+// 	rows.Close()
+// 	suite.Equal(rows.CommandTag().RowsAffected(), int64(1))
+// }
+
+func (suite *QueriesTestSuite) TestImportSQL() {
+	// // Importing a non existent PATH must fail
+	// errMessage, _ := ImportSQL("")
+	// suite.Equal(errMessage, "")
+	// // Importing a valid PATH must not fail
+	// errMessage, _ = ImportSQL("./testdata/test.sql")
+	// suite.Equal(errMessage, "CREATE TABLE\n")
+	// suite.True(TableExists("test"))
+	// // Importing a invalid .sql file must fail
+	// errMessage, _ = ImportSQL("./testdata/wrong.sql")
+	// suite.Equal(errMessage, "")
+>>>>>>> origin/main
 }
 
 func TestQueriesTestSuite(t *testing.T) {
