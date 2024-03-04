@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -20,7 +21,7 @@ type RowElem struct {
 	ElemType string
 }
 
-// x function to init transactions in DB
+// Function to init transactions in DB
 func initTransaction() {
 	tx, err = conn.Begin(context.Background())
 	if err != nil {
@@ -54,7 +55,6 @@ func CreateEmptyTable(
 	}
 	_, err = tx.Exec(
 		context.Background(),
-		// BUG: if args is nil, then this transaction always fails
 		"create table "+name+" ("+header+")",
 	)
 	if err != nil {
@@ -135,13 +135,12 @@ func CloseConnectionDB(name string) {
 	}
 }
 
+// The below functions are explicitly tested
+
 // Check if table exists in DB
 func TableExists(name string) bool {
-	// Should only run once
-	// WARN: should only run once
 	rows, err = conn.Query(
 		context.Background(),
-		// WARN: Remember to space end of each string
 		"SELECT * FROM information_schema.tables WHERE table_name = '"+name+"'",
 	)
 	defer rows.Close()
@@ -160,10 +159,7 @@ func TableExists(name string) bool {
 }
 
 // Return all rows pertaining to table
-func ReturnRows(name string, isTest ...*pgx.Conn) pgx.Rows {
-	for _, arg := range isTest {
-		conn = arg
-	}
+func ReturnRows(name string) pgx.Rows {
 	rows, err = conn.Query(context.Background(),
 		"SELECT * from "+name,
 	)
@@ -171,4 +167,17 @@ func ReturnRows(name string, isTest ...*pgx.Conn) pgx.Rows {
 		fmt.Fprintln(os.Stderr, "Failed Query(Return Rows):"+os.Getenv("PGDATABASE")+":"+name, err)
 	}
 	return rows
+}
+
+// Create new table based on .sql file in disk, PATH can either be absolute or relative
+func ImportSQL(PATH string) string {
+	out, err := exec.Command("psql", "-d", os.Getenv("PGDATABASE"), "-f", PATH).Output()
+	if err != nil {
+		fmt.Fprintln(
+			os.Stderr,
+			"Failed while running IMPORTSQL:"+os.Getenv("PGDATABASE")+":"+PATH,
+			err,
+		)
+	}
+	return string(out)
 }
