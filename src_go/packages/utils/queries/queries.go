@@ -2,18 +2,20 @@ package queries
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/exec"
 
+	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5"
+	"sigaa.ufpe/packages/utils/logs"
 )
 
-var (
-	conn *pgx.Conn
-	rows pgx.Rows
-	tx   pgx.Tx
-	err  error
+var conn *pgx.Conn
+
+type DBQUERY int64
+
+const (
+	SELECT_ALL DBQUERY = iota
 )
 
 type RowElem struct {
@@ -22,23 +24,16 @@ type RowElem struct {
 }
 
 // Function to init transactions in DB
-func initTransaction() {
-	tx, err = conn.Begin(context.Background())
-	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Couldn't begin transaction in :"+os.Getenv("PGDATABASE"),
-			err,
-		)
-	}
+func initTransaction() (pgx.Tx, error) {
+	var err error
+	tx, err := conn.Begin(context.Background())
+	return tx, err
 }
 
 // Commit a transaction to DB, can't rollback
-func commitTransaction() {
-	err = tx.Commit(context.Background())
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "Failed commit in :"+os.Getenv("PGDATABASE"))
-	}
+func commitTransaction(tx pgx.Tx) error {
+	err := tx.Commit(context.Background())
+	return err
 }
 
 // Aux table for testing, empty by default, that is no rows are present
@@ -47,8 +42,11 @@ func CreateEmptyTable(
 	idtype string,
 	name string,
 	args ...RowElem,
-) {
-	initTransaction()
+) error {
+	tx, err := initTransaction()
+	if err != nil {
+		logs.InitTransaction("CreateEmptyTable", err)
+	}
 	header := id + " " + idtype
 	for _, arg := range args {
 		header += " ," + arg.ElemName + " " + arg.ElemType
@@ -57,14 +55,11 @@ func CreateEmptyTable(
 		context.Background(),
 		"create table "+name+" ("+header+")",
 	)
+	commitTransaction(tx)
 	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Failed creating table in :"+os.Getenv("PGDATABASE"),
-			err,
-		)
+		logs.CommitTransaction("CreateEmptyTable", err)
 	}
-	commitTransaction()
+	return err
 }
 
 // Insert row in table
@@ -73,111 +68,96 @@ func InsertRow(
 	idval string,
 	name string,
 	args ...RowElem,
-) {
+) error {
 	label := idtype
 	vals := idval
 	for _, arg := range args {
 		label += " ," + arg.ElemName
 		vals += " ," + "'" + arg.ElemType + "'"
 	}
-	initTransaction()
+	tx, err := initTransaction()
+	if err != nil {
+		logs.InitTransaction("InsertRows", err)
+	}
 	_, err = tx.Exec(
 		context.Background(),
 		"insert into "+name+" ("+label+") values("+vals+")",
 	)
+	commitTransaction(tx)
 	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Failed creating table in :"+os.Getenv("PGDATABASE"),
-			err,
-		)
+		logs.CommitTransaction("InsertRows", err)
 	}
-	commitTransaction()
+	return err
 }
 
 // Drop table
-func DropTable(name string) {
-	initTransaction()
+func DropTable(name string) error {
+	tx, err := initTransaction()
+	if err != nil {
+		logs.InitTransaction("DropTable", err)
+	}
 	_, err = tx.Exec(
 		context.Background(),
 		"drop table if exists "+name,
 	)
+	commitTransaction(tx)
 	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Failed dropping table in :"+os.Getenv("PGDATABASE"),
-			err,
-		)
+		logs.CommitTransaction("DropTable", err)
 	}
-	commitTransaction()
+	return err
 }
 
 // Aux method for DB connection
-func ConnectDB(isTest ...*pgx.Conn) {
+func ConnectDB(isTest ...*pgx.Conn) error {
+	var err error
 	for _, arg := range isTest {
 		conn = arg
 	}
 	conn, err = pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error Conecction to DB:"+os.Getenv("PGDATABASE"), err)
-	}
+	return err
 }
 
 // Close connection to DB
-func CloseConnectionDB(name string) {
-	err = conn.Close(context.Background())
-	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Can't close connection to DB:"+os.Getenv("PGDATABASE")+":"+name,
-			err,
-		)
-	}
+func CloseConnectionDB(name string) error {
+	err := conn.Close(context.Background())
+	return err
 }
 
 // The below functions are explicitly tested
 
 // Check if table exists in DB
-func TableExists(name string) bool {
-	rows, err = conn.Query(
+func TableExists(name string) (bool, error) {
+	rows, err := conn.Query(
 		context.Background(),
 		"SELECT * FROM information_schema.tables WHERE table_name = '"+name+"'",
 	)
 	defer rows.Close()
-	if err != nil {
-
-		fmt.Fprintln(os.Stderr, "Error in Query(TableExists)"+os.Getenv("$PGDATABASE")+name, err)
-		fmt.Fprintln(os.Stderr, "Error in Query(TableExists)"+os.Getenv("PGDATABASE")+":"+name, err)
-		fmt.Fprintln(os.Stderr, "Error in Query(TableExists)"+os.Getenv("$PGDATABASE")+name, err)
-	}
 	// If not an empty array
 	for rows.Next() {
-		return true
+		return true, err
 	}
 	// Array is empty
-	return false
+	return false, err
 }
 
 // Return all rows pertaining to table
-func ReturnRows(name string) pgx.Rows {
-	rows, err = conn.Query(context.Background(),
-		"SELECT * from "+name,
-	)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "Failed Query(Return Rows):"+os.Getenv("PGDATABASE")+":"+name, err)
-	}
-	return rows
+func returnRows(name string, tableaddr any) error {
+	err := pgxscan.Select(context.Background(), conn, tableaddr, `SELECT * FROM `+name)
+	return err
 }
 
 // Create new table based on .sql file in disk, PATH can either be absolute or relative
-func ImportSQL(PATH string) string {
+func ImportSQL(PATH string) (string, error) {
 	out, err := exec.Command("psql", "-d", os.Getenv("PGDATABASE"), "-f", PATH).Output()
-	if err != nil {
-		fmt.Fprintln(
-			os.Stderr,
-			"Failed while running IMPORTSQL:"+os.Getenv("PGDATABASE")+":"+PATH,
-			err,
-		)
+	return string(out), err
+}
+
+// Insert rows into struct based on db query
+func InsertRows(structptr any, structname string, tag DBQUERY) error {
+	var err error
+	switch tag {
+	case SELECT_ALL:
+		err = returnRows(structname, structptr)
 	}
-	return string(out)
+	return err
 }
