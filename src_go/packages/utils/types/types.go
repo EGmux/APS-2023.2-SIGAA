@@ -9,27 +9,57 @@ type SQLRepoSitory struct {
 	conn *pgxpool.Pool
 }
 
-// // TODO: implement
-// // If table exits return else create it
-// func (repo *sqlrepo) CreateCourseRepo() bool {
-// 	return true
-// }
+type CredentialsRepo struct {
+	Id       string `db:"id"`
+	Passwd   string `db:"passwd"`
+	Username string `db:"username"`
+}
 
-// TODO: implement
-// Check if table exists if not create it otherwise retrieve it
-func (repo SQLRepoSitory) CreateCredentialRepo() bool {
-	queries.ConnectDB()
-	if queries.TableExists("credentials") {
-		queries.InsertRow(
-			"id",
-			"10",
-			"credentials",
-			queries.RowElem{ElemName: "passwd", ElemType: "1234"},
-			queries.RowElem{ElemName: "username", ElemType: "egb2"},
-		)
-		tableRows := queries.ReturnRows("credentials")
-		for tableRows.Next() {
-			println(tableRows.Scan())
+type PROAESRepo struct {
+	Id   string `db:"id"`
+	Name string `db:"name"`
+}
+
+type StudentRepo struct {
+	Id         string `db:"id"`
+	Name       string `db:"name"`
+	Transcript string `db:"transcript"`
+}
+
+type EnrollmentRepo struct {
+	Id     string `db:"id"`
+	Name   string `db:"name"`
+	Status string `db:"status"`
+}
+
+type ProfessorRepo struct {
+	Id   string `db:"id"`
+	Name string `db:"name"`
+}
+
+type ClassRepo struct {
+	Id        string `db:"id"`
+	Name      string `db:"name"`
+	Professor string `db:"professor"`
+	Students  string `db:"students"`
+}
+
+type SubjectRepo struct {
+	Id      string `db:"id"`
+	Name    string `db:"name"`
+	Content string `db:"content"`
+	Deps    string `db:"deps"`
+}
+
+var (
+	credentialRepo []*CredentialsRepo
+	proaesRepo     []*PROAESRepo
+	studentRepo    []*StudentRepo
+	enrollmentRepo []*EnrollmentRepo
+	professorRepo  []*ProfessorRepo
+	classRepo      []*ClassRepo
+	subjectRepo    []*SubjectRepo
+)
 		}
 		tableRows.Close()
 	}
