@@ -13,7 +13,7 @@ func DropTable(fn string, tablename string, err error) {
 		"Failed to drop table",
 		tablename,
 		"in DB",
-		os.Getenv("PGDATABASE"),
+		os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -28,7 +28,7 @@ func InsertRows(fn string, structname string, tablename string, err error) {
 		"in DB",
 		os.Getenv("PGDATABASE"),
 		"into",
-		structname,
+		structname, "ERROR",
 		err,
 	)
 }
@@ -41,7 +41,7 @@ func ImportSQL(fn string, PATH string, err error) {
 		"Failed importing SQL file",
 		PATH,
 		"in DB",
-		os.Getenv("PGDATABASE"),
+		os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -55,7 +55,7 @@ func TableExists(fn string, tablename string, err error) {
 		":",
 		"Table",
 		tablename,
-		"does not exist in:"+os.Getenv("PGDATABASE"),
+		"does not exist in:"+os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -68,7 +68,7 @@ func ConnectDB(fn string, err error) {
 		fn,
 		":",
 		"Error connecting to DB:",
-		os.Getenv("PGDATABASE"),
+		os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -81,7 +81,7 @@ func CommitTransaction(fn string, err error) {
 		fn,
 		":",
 		"Failed transaction in DB",
-		os.Getenv("PGDATABASE"),
+		os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -91,7 +91,7 @@ func InitTransaction(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
-		"Failed initiating transaction in DB", os.Getenv("PGDATABASE"),
+		"Failed initiating transaction in DB", os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -104,7 +104,7 @@ func CreateTable(fn string, tablename string, err error) {
 		"Can't create table",
 		tablename,
 		"in DB",
-		os.Getenv("PGDATABASE"),
+		os.Getenv("PGDATABASE"), "ERROR",
 		err,
 	)
 }
@@ -115,7 +115,21 @@ func CloseConnectionDB(fn string, err error) {
 		os.Stderr,
 		"Call from", fn, ":",
 		"Failed close connection to",
+		os.Getenv("PGDATABASE"), "ERROR",
+		err,
+	)
+}
+
+// fn:name of function that called log
+func CreateCredentialRepo(fn string, err error) {
+	fmt.Fprintln(
+		os.Stderr,
+		"Call from",
+		fn,
+		":",
+		"Failed to retrieve Credential repo in",
 		os.Getenv("PGDATABASE"),
+		"ERROR",
 		err,
 	)
 }
