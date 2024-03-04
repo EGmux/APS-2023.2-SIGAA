@@ -1,6 +1,7 @@
 package login_controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,17 +23,18 @@ func loginController() *gin.Engine {
 
 	r.POST("/login/auth", func(ctx *gin.Context) {
 		var student student.Student
+		fmt.Println(student)
 		if err := ctx.Bind(&student); err != nil{
+			fmt.Println("Erro de Bind")
 			ctx.String(http.StatusBadRequest, "Erro ao processar o formulario: %v", err)
-			return
 		}
 
 		
 		if facade.IsValidUser(student.User, student.Password) {
             // Redirecionar para a página principal em caso de autenticação bem-sucedida
             ctx.Redirect(http.StatusMovedPermanently, "/mainMenu")
-            return
         }
+		
 	})
 
 	r.GET("/signUp", func(ctx *gin.Context) {
