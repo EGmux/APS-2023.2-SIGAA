@@ -15,7 +15,7 @@ func loginController() *gin.Engine {
 
 	// Necessary /*/* to mach the first set of dirs
 	// and the second to match the .html in each dir
-	r.LoadHTMLGlob("packages/login/*/*")
+	r.LoadHTMLGlob("packages/view/Login/*")
 
 	r.GET("/login", func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "login.html", gin.H{})
@@ -56,7 +56,7 @@ func loginController() *gin.Engine {
 	})
 
 	r.GET("/mainMenu", func(ctx *gin.Context){
-		ctx.HTML(http.StatusOK, "mainMenu.html", gin.H{})
+		ctx.Redirect(http.StatusMovedPermanently, "http://localhost:8081/mainMenu")
 	})
 
 	return r
