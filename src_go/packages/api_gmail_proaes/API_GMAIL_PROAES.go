@@ -1,8 +1,17 @@
 package API_GMAIL_PROAES
 
+import proaes "sigaa.ufpe/packages/data/proaes_data"
 
 
 
-func Send_Proaes_Email(){
+type PROAES_Email struct{
+	PROAES proaes.PROAES
+	Subject string
+	Message string
+}
 
+
+func Send_Proaes_Email(PROAES_Email PROAES_Email){
+
+	
 }

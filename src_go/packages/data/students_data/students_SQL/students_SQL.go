@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	student "sigaa.ufpe/packages/data/students_data"
@@ -14,39 +15,41 @@ import (
 var db *pgxpool.Pool
 
 func InitDB() {
-    var err error
-    db, err = pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
-    if err != nil {
-        log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
-    }
+	var err error
+	fmt.Println(context.Background(), os.Getenv("DATABASE_URL"))
+	db, err = pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	if err != nil {
+		fmt.Println("Fail")
+		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
+	}
 }
 
 func CloseDB() {
-    db.Close()
+	db.Close()
 }
 
 func IsValidUser(username string, password string) bool {
-    var storedPassword string
-    err := db.QueryRow(context.Background(), "SELECT pswrd FROM students WHERE usr = $1", username).Scan(&storedPassword)
-    if err != nil {
-        if err == pgx.ErrNoRows {
+	var storedPassword string
+	err := db.QueryRow(context.Background(), "SELECT pswrd FROM students WHERE usr = $1", username).Scan(&storedPassword)
+	if err != nil {
+		if err == pgx.ErrNoRows {
 			fmt.Println("DATABASE RETURNED FALSE")
-            return false
-        }
-        log.Fatalf("Erro ao consultar o banco de dados: %v", err)
-    }
+			return false
+		}
+		log.Fatalf("Erro ao consultar o banco de dados: %v", err)
+	}
 	fmt.Println(password, storedPassword)
-    return password == storedPassword
+	return password == storedPassword
 }
 
 func InsertUser(username string, password string) {
-	if !IsValidUser(username, password){
+	if !IsValidUser(username, password) {
 		db.Exec(context.Background(), "INSERT INTO students (usr, pswrd) VALUES ($1, $2)", username, password)
 	}
-	 
+
 }
 
-func GetAllUsers() ([]student.Student) {
+func GetAllUsers() []student.Student {
 	rows, err := db.Query(context.Background(), "SELECT usr, pswrd FROM students")
 	if err != nil {
 		log.Fatal("Student_SQL.go : It was not possible to realize the querry")
