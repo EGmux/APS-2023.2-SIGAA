@@ -23,7 +23,6 @@ func loginController() *gin.Engine {
 
 	r.POST("/login/auth", func(ctx *gin.Context) {
 		var student student.Student
-		fmt.Println(student)
 		if err := ctx.Bind(&student); err != nil{
 			fmt.Println("Erro de Bind")
 			ctx.String(http.StatusBadRequest, "Erro ao processar o formulario: %v", err)

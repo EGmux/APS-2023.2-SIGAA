@@ -14,7 +14,7 @@ import (
 
 var db *pgxpool.Pool
 
-func InitDB() {
+func Init_Students_DB() {
 	var err error
 	fmt.Println(context.Background(), os.Getenv("DATABASE_URL"))
 	db, err = pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))

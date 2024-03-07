@@ -10,8 +10,8 @@ func IsValidUser(username string, password string) bool {
 	return data_studentsdata_studentsSQL.IsValidUser(username, password)
 }
 
-func InitDB(){
-	data_studentsdata_studentsSQL.InitDB()
+func Init_StudentsDB(){
+	data_studentsdata_studentsSQL.Init_Students_DB()
 }
 
 func CloseDB(){

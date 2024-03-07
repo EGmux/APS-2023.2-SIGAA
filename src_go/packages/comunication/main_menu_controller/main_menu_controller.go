@@ -17,10 +17,14 @@ func main_menu_controller() *gin.Engine{
 		ctx.HTML(http.StatusOK, "mainMenu.html", gin.H{})
 	})
 
+
+	r.GET("/scholar", func(ctx *gin.Context)  {
+		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8082/scholarship")
+	})
+
 	return r
 
 }
-
 
 
 
