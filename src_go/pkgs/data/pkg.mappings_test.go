@@ -1,4 +1,4 @@
-package utils
+package data
 
 import (
 	"errors"
@@ -6,7 +6,6 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"sigaa.ufpe/pkgs/data/repo/structs"
-	"sigaa.ufpe/pkgs/repo/structs/sqlstructs"
 )
 
 // Control test environment
