@@ -12,6 +12,8 @@ import (
 
 var conn *pgx.Conn
 
+type RepositoryConn struct{}
+
 type DBQUERY int64
 
 const (
@@ -23,27 +25,27 @@ type RowElem struct {
 	ElemType string
 }
 
-// Function to init transactions in DB
-func initTransaction() (pgx.Tx, error) {
+// func (c *RepositoryConn)tion to init transactions in DB
+func (c *RepositoryConn) initTransaction() (pgx.Tx, error) {
 	var err error
 	tx, err := conn.Begin(context.Background())
 	return tx, err
 }
 
 // Commit a transaction to DB, can't rollback
-func commitTransaction(tx pgx.Tx) error {
+func (c *RepositoryConn) commitTransaction(tx pgx.Tx) error {
 	err := tx.Commit(context.Background())
 	return err
 }
 
 // Aux table for testing, empty by default, that is no rows are present
-func CreateEmptyTable(
+func (c *RepositoryConn) CreateEmptyTable(
 	id string,
 	idtype string,
 	name string,
 	args ...RowElem,
 ) error {
-	tx, err := initTransaction()
+	tx, err := c.initTransaction()
 	if err != nil {
 		logs.InitTransaction("CreateEmptyTable", err)
 	}
@@ -55,7 +57,7 @@ func CreateEmptyTable(
 		context.Background(),
 		"create table "+name+" ("+header+")",
 	)
-	commitTransaction(tx)
+	c.commitTransaction(tx)
 	if err != nil {
 		logs.CommitTransaction("CreateEmptyTable", err)
 	}
@@ -63,7 +65,7 @@ func CreateEmptyTable(
 }
 
 // Insert row in table
-func InsertRow(
+func (c *RepositoryConn) InsertRow(
 	idtype string,
 	idval string,
 	name string,
@@ -75,7 +77,7 @@ func InsertRow(
 		label += " ," + arg.ElemName
 		vals += " ," + "'" + arg.ElemType + "'"
 	}
-	tx, err := initTransaction()
+	tx, err := c.initTransaction()
 	if err != nil {
 		logs.InitTransaction("InsertRows", err)
 	}
@@ -83,7 +85,7 @@ func InsertRow(
 		context.Background(),
 		"insert into "+name+" ("+label+") values("+vals+")",
 	)
-	commitTransaction(tx)
+	c.commitTransaction(tx)
 	if err != nil {
 		logs.CommitTransaction("InsertRows", err)
 	}
@@ -91,8 +93,8 @@ func InsertRow(
 }
 
 // Drop table
-func DropTable(name string) error {
-	tx, err := initTransaction()
+func (c *RepositoryConn) DropTable(name string) error {
+	tx, err := c.initTransaction()
 	if err != nil {
 		logs.InitTransaction("DropTable", err)
 	}
@@ -100,7 +102,7 @@ func DropTable(name string) error {
 		context.Background(),
 		"drop table if exists "+name,
 	)
-	commitTransaction(tx)
+	c.commitTransaction(tx)
 	if err != nil {
 		logs.CommitTransaction("DropTable", err)
 	}
@@ -108,7 +110,7 @@ func DropTable(name string) error {
 }
 
 // Aux method for DB connection
-func ConnectDB(isTest ...*pgx.Conn) error {
+func (c *RepositoryConn) ConnectDB(isTest ...*pgx.Conn) error {
 	var err error
 	for _, arg := range isTest {
 		conn = arg
@@ -118,15 +120,15 @@ func ConnectDB(isTest ...*pgx.Conn) error {
 }
 
 // Close connection to DB
-func CloseConnectionDB(name string) error {
+func (c *RepositoryConn) CloseConnectionDB(name string) error {
 	err := conn.Close(context.Background())
 	return err
 }
 
-// The below functions are explicitly tested
+// The below func (c *RepositoryConn)tions are explicitly tested
 
 // Check if table exists in DB
-func TableExists(name string) (bool, error) {
+func (c *RepositoryConn) TableExists(name string) (bool, error) {
 	rows, err := conn.Query(
 		context.Background(),
 		"SELECT * FROM information_schema.tables WHERE table_name = '"+name+"'",
@@ -141,20 +143,25 @@ func TableExists(name string) (bool, error) {
 }
 
 // INPLACE, pass ptr address! Return all rows pertaining to table
-func returnRows(structaddr any, table string, id string, args ...string) error {
-	columns := convertToColumns(id, args...)
-	err := pgxscan.Select(context.Background(), conn, structaddr, `SELECT `+columns+` FROM `+table)
+func (c *RepositoryConn) returnRows(structaddr any, table string, id string, args ...string) error {
+	columns := c.convertToColumns(id, args...)
+	err := pgxscan.Select(
+		context.Background(),
+		conn,
+		structaddr,
+		`SELECT `+columns+` FROM `+table,
+	)
 	return err
 }
 
 // Create new table based on .sql file in disk, PATH can either be absolute or relative
-func ImportSQL(PATH string) (string, error) {
+func (c *RepositoryConn) ImportSQL(PATH string) (string, error) {
 	out, err := exec.Command("psql", "-d", os.Getenv("PGDATABASE"), "-f", PATH).Output()
 	return string(out), err
 }
 
 // convert args to columns
-func convertToColumns(id string, args ...string) string {
+func (c *RepositoryConn) convertToColumns(id string, args ...string) string {
 	columns := id
 	for _, arg := range args {
 		columns += " ," + arg + " "
@@ -163,7 +170,7 @@ func convertToColumns(id string, args ...string) string {
 }
 
 // INPLACE, pass ptr address! Insert rows into struct based on db query
-func InsertIntoSQLStruct(
+func (c *RepositoryConn) InsertIntoSQLStruct(
 	structptr any,
 	tag DBQUERY,
 	table string,
@@ -173,7 +180,7 @@ func InsertIntoSQLStruct(
 	var err error
 	switch tag {
 	case SELECT_ALL:
-		err = returnRows(structptr, table, id, args...)
+		err = c.returnRows(structptr, table, id, args...)
 	}
 	return err
 }
