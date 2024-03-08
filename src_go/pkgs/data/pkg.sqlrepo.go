@@ -2,7 +2,8 @@ package data
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
-	"sigaa.ufpe/pkgs/utils/"
+	"github.com/pkg/errors"
+	util "sigaa.ufpe/pkgs/utils"
 )
 
 type SQLRepository struct {
@@ -48,20 +49,20 @@ func createIfExistORReturnSQLRepoT[T SQLTablesPtrs](
 	id string,
 	columns ...string,
 ) error {
-	err := utils.ConnectDB()
+	err := errors.New("rerro")
 	if err != nil {
-		.ConnectDB(repoName, err)
+		util.DB.ConnectDB()
 	}
 	var exists bool
-	exists, err = .TableExists(tableName)
+	exists, err = util.DB.TableExists(tableName)
 	if err != nil {
-		.TableExists(repoName, tableName, err)
+		util.DB.TableExists(tableName)
 	}
 	if exists {
-		// err = .InsertIntoSQLStruct(repoType, .SELECT_ALL, tableName, id, columns...)
+		err = util.DB.InsertIntoSQLStruct(repoType, util.SELECT_ALL, tableName, id, columns...)
 	}
 	if err != nil {
-		.InsertRows(repoName, repoName, tableName, err)
+		util.DB.InsertRow(repoName, repoName, tableName)
 	}
 	return err
 }
@@ -79,7 +80,7 @@ func (s SQLRepository) CreateCredentialRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	credentialRepo, err := s.repo.GetCredentials()
-	err = utils.ConvertSQLToList(&CredentialSQLRepo, credentialRepo)
+	err = ConvertSQLToList(&CredentialSQLRepo, credentialRepo)
 	return err
 }
 
@@ -93,7 +94,7 @@ func (s SQLRepository) CreatePROAESRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	proaesRepo, err := s.repo.GetPROAES()
-	utils.ConvertSQLToList(&ProaesSQLRepo, proaesRepo)
+	err = ConvertSQLToList(&ProaesSQLRepo, proaesRepo)
 	return err
 }
 
@@ -108,7 +109,7 @@ func (s SQLRepository) CreateEnrollmentRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	enrolmmentRepo, err := s.repo.GetEnrollments()
-	utils.ConvertSQLToList(&EnrollmentSQLRepo, enrolmmentRepo)
+	err = ConvertSQLToList(&EnrollmentSQLRepo, enrolmmentRepo)
 	return err
 }
 
@@ -118,7 +119,7 @@ func (s SQLRepository) CreateProfessorRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	professorRepo, err := s.repo.GetProfessors()
-	utils.ConvertSQLToList(&ProaesSQLRepo, professorRepo)
+	err = ConvertSQLToList(&ProaesSQLRepo, professorRepo)
 	return err
 }
 
@@ -134,7 +135,7 @@ func (s SQLRepository) CreateClassRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	classesRepo, err := s.repo.GetClasses()
-	utils.ConvertSQLToList(&ClassSQLRepo, classesRepo)
+	err = ConvertSQLToList(&ClassSQLRepo, classesRepo)
 	return err
 }
 
@@ -149,6 +150,6 @@ func (s SQLRepository) CreateStudentRepo() error {
 	)
 	// Inplace modification, alter the fields in Repo
 	studentRepo, err := s.repo.GetStudents()
-	utils.ConvertSQLToList(&StudentSQLRepo, studentRepo)
+	err = ConvertSQLToList(&StudentSQLRepo, studentRepo)
 	return err
 }

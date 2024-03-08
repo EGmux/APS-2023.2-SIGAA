@@ -14,12 +14,6 @@ var conn *pgx.Conn
 
 type RepositoryConn struct{}
 
-type DBQUERY int64
-
-const (
-	SELECT_ALL DBQUERY = iota
-)
-
 type RowElem struct {
 	ElemName string
 	ElemType string
