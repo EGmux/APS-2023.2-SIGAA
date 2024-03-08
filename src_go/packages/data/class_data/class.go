@@ -7,6 +7,7 @@ import (
 )
 
 type Class struct {
+	Name        string
 	Capacity    int
 	Mandatory   bool
 	Equivalency []Class
@@ -15,5 +16,5 @@ type Class struct {
 	Professor   professor.Professor
 	Students    []student.Student
 	Grades      []grades.Grade
+	Semester    string
 }
-

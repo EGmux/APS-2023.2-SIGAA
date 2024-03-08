@@ -8,16 +8,20 @@ import (
 
 	"github.com/jordan-wright/email"
 	professor "sigaa.ufpe/packages/data/professor_data"
+	teachingscholarship "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship"
+	student "sigaa.ufpe/packages/data/students_data"
 	//"gopkg.in/gomail.v2" // Para enviar através de SMTP
 )
 
-type Professor_Email struct{
+type Professor_Email_API struct{
 	Professor professor.Professor
 	Subject string
 	Message string
+	Scholarship teachingscholarship.TeachingScholarship
+	Student student.Student
 }
 
-func Send_Professor_email(Professor_Email Professor_Email) {
+func Send_Professor_email(Professor_Email Professor_Email_API) {
 	// Crie um e-mail
 	e := email.NewEmail()
 	e.From = string(os.Getenv("EMAIL_SENDER_NAME")) + " <" + string(os.Getenv("EMAIL_SENDER_ADDRESS"))+">" //"Remetente <remetente@example.com>"
