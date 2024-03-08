@@ -7,7 +7,6 @@ import (
 
 	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5"
-	"sigaa.ufpe/pkgs/utils/logs"
 )
 
 var conn *pgx.Conn

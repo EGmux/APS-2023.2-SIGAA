@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"sigaa.ufpe/pkgs/data/repo/structs"
 )
 
 // Control test environment
@@ -16,23 +15,23 @@ type debug struct {
 
 // scope global vars
 var (
-	credentialsRepo   []*structs.Credentials
-	credentialSQLRepo []*sqlstructs.CredentialsSQL
+	credentialsRepo   []*Credentials
+	credentialSQLRepo []*CredentialsSQL
 
-	proaesRepo     []*structs.PROAES
-	proaesSQLRRepo []*sqlstructs.PROAESSQL
+	proaesRepo     []*PROAES
+	proaesSQLRRepo []*PROAESSQL
 
-	professorRepo    []*structs.Professor
-	professorSQLRepo []*sqlstructs.ProfessorSQL
+	professorRepo    []*Professor
+	professorSQLRepo []*ProfessorSQL
 
-	classRepo    []*structs.Class
-	classSQLRepo []*sqlstructs.ClassSQL
+	classRepo    []*Class
+	classSQLRepo []*ClassSQL
 
-	gradeRepo    []*structs.Grade
-	gradeSQLRepo []*sqlstructs.GradeSQL
+	gradeRepo    []*Grade
+	gradeSQLRepo []*GradeSQL
 
-	studentRepo    []*structs.Student
-	studentSQLRepo []*sqlstructs.StudentSQL
+	studentRepo    []*Student
+	studentSQLRepo []*StudentSQL
 
 	utils utilsTestSuite
 )
@@ -47,17 +46,17 @@ type utilsTestSuite struct {
 func (u utilsTestSuite) TestSetup() error {
 	for i := 0; i < u.iter; i++ {
 		// Struct's
-		structs.AddRows(&credentialsRepo)
-		structs.AddRows(&proaesRepo)
-		structs.AddRows(&classRepo)
-		structs.AddRows(&gradeRepo)
-		structs.AddRows(&studentRepo)
+		AddRows(&credentialsRepo)
+		AddRows(&proaesRepo)
+		AddRows(&classRepo)
+		AddRows(&gradeRepo)
+		AddRows(&studentRepo)
 		// SQLRepo's
-		sqlstructs.AddRowsSQ(&credentialSQLRepo)
-		sqlstructs.AddRowsSQ(&proaesSQLRRepo)
-		sqlstructs.AddRowsSQ(&classSQLRepo)
-		sqlstructs.AddRowsSQ(&gradeSQLRepo)
-		sqlstructs.AddRowsSQ(&studentSQLRepo)
+		AddRowsSQ(&credentialSQLRepo)
+		AddRowsSQ(&proaesSQLRRepo)
+		AddRowsSQ(&classSQLRepo)
+		AddRowsSQ(&gradeSQLRepo)
+		AddRowsSQ(&studentSQLRepo)
 	}
 	return nil
 }
@@ -87,8 +86,8 @@ func (u *utilsTestSuite) TearDownTest() {
 // deepcheck the Credentials struct
 func deepCheckCredentials(
 	pos int,
-	u []*sqlstructs.CredentialsSQL,
-	v []*structs.Credentials,
+	u []*CredentialsSQL,
+	v []*Credentials,
 ) (bool, error) {
 	if !cmp.Equal(v[pos].Id, u[pos].Id) ||
 		!cmp.Equal(v[pos].Logged, u[pos].Logged) ||
@@ -103,8 +102,8 @@ func deepCheckCredentials(
 // deepcheck the Professsor struct
 func deepCheckProfessor(
 	pos int,
-	u []*sqlstructs.ProfessorSQL,
-	v []*structs.Professor,
+	u []*ProfessorSQL,
+	v []*Professor,
 ) (bool, error) {
 	if !cmp.Equal(u[pos].Id, v[pos].Name) ||
 		!cmp.Equal(u[pos].Email, v[pos].Email) ||
@@ -117,8 +116,8 @@ func deepCheckProfessor(
 // // deepcheck the Grades struct
 func deepCheckGrades(
 	pos int,
-	u []*sqlstructs.GradeSQL,
-	v []*structs.Grade,
+	u []*GradeSQL,
+	v []*Grade,
 ) (bool, error) {
 	if cmp.Equal(u[pos].Grade, v[pos].Grade) ||
 		cmp.Equal(u[pos].Id, v[pos].Id) {
@@ -130,8 +129,8 @@ func deepCheckGrades(
 // deepcheck the Class struct
 func deepCheckClass(
 	pos int,
-	u []*sqlstructs.ClassSQL,
-	v []*structs.Class,
+	u []*ClassSQL,
+	v []*Class,
 ) (bool, error) {
 	rangeOver := func() bool {
 		for p := range u[pos].Professor {
@@ -157,8 +156,8 @@ func deepCheckClass(
 // deepcheck the PROAEST struct
 func deepChecPROAES(
 	pos int,
-	u []*sqlstructs.PROAESSQL,
-	v []*structs.PROAES,
+	u []*PROAESSQL,
+	v []*PROAES,
 ) (bool, error) {
 	if !cmp.Equal(u[pos].Id, v[pos].Id) ||
 		!cmp.Equal(u[pos].Email, v[pos].Email) {
@@ -170,8 +169,8 @@ func deepChecPROAES(
 // deepcheck the Student struct
 func deepCheckStudent(
 	pos int,
-	u []*sqlstructs.StudentSQL,
-	v []*structs.Student,
+	u []*StudentSQL,
+	v []*Student,
 ) (bool, error) {
 	if !cmp.Equal(u[pos].CPF, v[pos].CPF) ||
 		!cmp.Equal(u[pos].Id, v[pos].Id) ||
@@ -181,7 +180,7 @@ func deepCheckStudent(
 	return true, nil
 }
 
-func deepCheck[T sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
+func deepCheck[T SQLTablesPtrs, V TablePtrs](
 	te *testing.T,
 	t []*T,
 	v []*V,

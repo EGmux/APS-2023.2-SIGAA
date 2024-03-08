@@ -1,12 +1,16 @@
-package logs
+package utils
 
 import (
 	"fmt"
 	"os"
 )
 
+type log struct{}
+
+var logs log
+
 // fn: name of function that called log
-func DropTable(fn string, tablename string, err error) {
+func (l *log) DropTable(fn string, tablename string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -19,7 +23,7 @@ func DropTable(fn string, tablename string, err error) {
 }
 
 // fn: name of function that called log
-func InsertRows(fn string, structname string, tablename string, err error) {
+func (l *log) InsertRows(fn string, structname string, tablename string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -34,7 +38,7 @@ func InsertRows(fn string, structname string, tablename string, err error) {
 }
 
 // fn: name of function that called log
-func ImportSQL(fn string, PATH string, err error) {
+func (l *log) ImportSQL(fn string, PATH string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -47,7 +51,7 @@ func ImportSQL(fn string, PATH string, err error) {
 }
 
 // fn: name of function that called log
-func TableExists(fn string, tablename string, err error) {
+func (l *log) TableExists(fn string, tablename string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from",
@@ -61,7 +65,7 @@ func TableExists(fn string, tablename string, err error) {
 }
 
 // fn: name of function that called log
-func ConnectDB(fn string, err error) {
+func (l *log) ConnectDB(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from",
@@ -74,7 +78,7 @@ func ConnectDB(fn string, err error) {
 }
 
 // fn: name of function that called log
-func CommitTransaction(fn string, err error) {
+func (l *log) CommitTransaction(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from",
@@ -87,7 +91,7 @@ func CommitTransaction(fn string, err error) {
 }
 
 // fn: name of function that called log
-func InitTransaction(fn string, err error) {
+func (l *log) InitTransaction(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -97,7 +101,7 @@ func InitTransaction(fn string, err error) {
 }
 
 // fn: name of function that called log
-func CreateTable(fn string, tablename string, err error) {
+func (l *log) CreateTable(fn string, tablename string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -110,7 +114,7 @@ func CreateTable(fn string, tablename string, err error) {
 }
 
 // fn: name of function that called log
-func CloseConnectionDB(fn string, err error) {
+func (l *log) CloseConnectionDB(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from", fn, ":",
@@ -121,7 +125,7 @@ func CloseConnectionDB(fn string, err error) {
 }
 
 // fn:name of function that called log
-func CreateCredentialRepo(fn string, err error) {
+func (l *log) CreateCredentialRepo(fn string, err error) {
 	fmt.Fprintln(
 		os.Stderr,
 		"Call from",

@@ -1,10 +1,5 @@
 package data
 
-import (
-	"sigaa.ufpe/pkgs/data/repo/structs"
-	"sigaa.ufpe/pkgs/data/repo/structs/sqlstructs"
-)
-
 type Direction int
 
 // ENUMS
@@ -22,8 +17,8 @@ func AbsInt(x int) int {
 	}
 }
 
-// Inplace, pass &, Convert a list of struct pointer to list of struct SQL, assuming both structs are equivalent
-func ConvertSQLToList[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
+// Inplace, pass &, Convert a list of struct pointer to list of struct SQL, assuming both are equivalent
+func ConvertSQLToList[U SQLTablesPtrs, V TablePtrs](
 	listSrcType *[]*U,
 	listDestType *[]*V,
 	interval ...[]int,
@@ -43,8 +38,8 @@ func ConvertSQLToList[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
 	return nil
 }
 
-// Inplace, pass &, Convert a list of  SQL  to list of struct, assuming both structs are equivalent
-func ConvertStructToSQL[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
+// Inplace, pass &, Convert a list of  SQL  to list of struct, assuming both are equivalent
+func ConvertStructToSQL[U SQLTablesPtrs, V TablePtrs](
 	listSrcType *[]*U,
 	listDestType *[]*V,
 	interval ...[]int,
@@ -65,32 +60,32 @@ func ConvertStructToSQL[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
 
 // map SQL to struct or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mapSQL_Struct[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
+func mapSQL_Struct[U SQLTablesPtrs, V TablePtrs](
 	s *[]*U,
 	d *[]*V,
 	pos int,
 	dir Direction,
 ) error {
 	switch t1 := any(s).(type) {
-	case *[]*sqlstructs.CredentialsSQL:
-		t2 := any(d).(*[]*structs.Credentials)
-		structs.AddRows(t2)
+	case *[]*CredentialsSQL:
+		t2 := any(d).(*[]*Credentials)
+		AddRows(t2)
 		_ = mappingCredentials((*t2)[pos], (*t1)[pos], dir)
-	case *[]*sqlstructs.ProfessorSQL:
-		t2 := any(d).(*[]*structs.Professor)
-		structs.AddRows(t2)
+	case *[]*ProfessorSQL:
+		t2 := any(d).(*[]*Professor)
+		AddRows(t2)
 		_ = mappingProfessor((*t2)[pos], (*t1)[pos], dir)
-	case *[]*sqlstructs.PROAESSQL:
-		t2 := any(d).(*[]*structs.PROAES)
-		structs.AddRows(t2)
+	case *[]*PROAESSQL:
+		t2 := any(d).(*[]*PROAES)
+		AddRows(t2)
 		_ = mappingPROAES((*t2)[pos], (*t1)[pos], dir)
-	case *[]*sqlstructs.EnrollmentSQL:
-		t2 := any(d).(*[]*structs.Enrollment)
-		structs.AddRows(t2)
+	case *[]*EnrollmentSQL:
+		t2 := any(d).(*[]*Enrollment)
+		AddRows(t2)
 		_ = mappingEnrollment((*t2)[pos], (*t1)[pos], dir)
-	case *[]*sqlstructs.TeachingScholarshipSQL:
-		t2 := any(d).(*[]*structs.TeachingScholarship)
-		structs.AddRows(t2)
+	case *[]*TeachingScholarshipSQL:
+		t2 := any(d).(*[]*TeachingScholarship)
+		AddRows(t2)
 		_ = mappingTeachingScholarship((*t2)[pos], (*t1)[pos], dir)
 	}
 	return nil
@@ -98,7 +93,7 @@ func mapSQL_Struct[U sqlstructs.SQLTablesPtrs, V structs.TablePtrs](
 
 // map Credentials struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingCredentials(d *structs.Credentials, s *sqlstructs.CredentialsSQL, dir Direction) error {
+func mappingCredentials(d *Credentials, s *CredentialsSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Password = s.Passwd
 		d.User = s.Username
@@ -115,7 +110,7 @@ func mappingCredentials(d *structs.Credentials, s *sqlstructs.CredentialsSQL, di
 
 // map Professor struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingProfessor(d *structs.Professor, s *sqlstructs.ProfessorSQL, dir Direction) error {
+func mappingProfessor(d *Professor, s *ProfessorSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Id = s.Id
 		d.Name = s.Name
@@ -132,7 +127,7 @@ func mappingProfessor(d *structs.Professor, s *sqlstructs.ProfessorSQL, dir Dire
 
 // map PROAES struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingPROAES(d *structs.PROAES, s *sqlstructs.PROAESSQL, dir Direction) error {
+func mappingPROAES(d *PROAES, s *PROAESSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Email = s.Email
 		d.Id = s.Id
@@ -145,7 +140,7 @@ func mappingPROAES(d *structs.PROAES, s *sqlstructs.PROAESSQL, dir Direction) er
 
 // map Enrollment struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingEnrollment(d *structs.Enrollment, s *sqlstructs.EnrollmentSQL, dir Direction) error {
+func mappingEnrollment(d *Enrollment, s *EnrollmentSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Id = s.Id
 		d.CPF = s.CPF
@@ -166,7 +161,7 @@ func mappingEnrollment(d *structs.Enrollment, s *sqlstructs.EnrollmentSQL, dir D
 
 // map Student struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingStudent(d *structs.Student, s *sqlstructs.StudentSQL, dir Direction) error {
+func mappingStudent(d *Student, s *StudentSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Name = s.Name
 		d.CPF = s.CPF
@@ -179,7 +174,7 @@ func mappingStudent(d *structs.Student, s *sqlstructs.StudentSQL, dir Direction)
 
 // map Class struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingClass(d *structs.Class, s *sqlstructs.ClassSQL, dir Direction) error {
+func mappingClass(d *Class, s *ClassSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Id = s.Id
 		d.Assesment = s.Assesment
@@ -204,7 +199,7 @@ func mappingClass(d *structs.Class, s *sqlstructs.ClassSQL, dir Direction) error
 
 // map Grades struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingGrades(d *structs.Grade, s *sqlstructs.GradeSQL, dir Direction) error {
+func mappingGrades(d *Grade, s *GradeSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Grade = s.Grade
 		d.Id = s.Id
@@ -217,7 +212,7 @@ func mappingGrades(d *structs.Grade, s *sqlstructs.GradeSQL, dir Direction) erro
 
 // map Courses struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingCourses(d *structs.Course, s *sqlstructs.CourseSQL, dir Direction) error {
+func mappingCourses(d *Course, s *CourseSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		for p, e := range s.Classes {
 			mappingClass(d.Classes[p], e, dir)
@@ -240,7 +235,7 @@ func mappingCourses(d *structs.Course, s *sqlstructs.CourseSQL, dir Direction) e
 
 // map Scholarship struct to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
-func mappingScholarship(d *structs.Scholarship, s *sqlstructs.ScholarshipSQL, dir Direction) error {
+func mappingScholarship(d *Scholarship, s *ScholarshipSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Id = s.Id
 		d.Value = s.Value
@@ -256,8 +251,8 @@ func mappingScholarship(d *structs.Scholarship, s *sqlstructs.ScholarshipSQL, di
 // map mappingTeachingScholarship to SQL or vice-versa according to dir ENUM
 // STRUCTTOSQL and STQLTOSTRUCT
 func mappingTeachingScholarship(
-	d *structs.TeachingScholarship,
-	s *sqlstructs.TeachingScholarshipSQL,
+	d *TeachingScholarship,
+	s *TeachingScholarshipSQL,
 	dir Direction,
 ) error {
 	if dir == SQLTOSTRUCT {
