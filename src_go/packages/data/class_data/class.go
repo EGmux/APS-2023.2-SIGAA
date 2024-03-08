@@ -6,14 +6,14 @@ import (
 	student "sigaa.ufpe/packages/data/students_data"
 )
 
-type Class struct{
-
-	Capacity int
-	Mandatory bool
+type Class struct {
+	Capacity    int
+	Mandatory   bool
 	Equivalency []Class
-	Timetable string
-	Assesment string
-	Professor professor.Professor
-	Students []student.Student
-	Grades []grades.Grade
+	Timetable   string
+	Assesment   string
+	Professor   professor.Professor
+	Students    []student.Student
+	Grades      []grades.Grade
 }
+

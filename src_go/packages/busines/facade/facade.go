@@ -5,27 +5,22 @@ import (
 	student "sigaa.ufpe/packages/data/students_data"
 )
 
-
-
-
-
-func IsValidUser(username string, password string) bool{
+func IsValidUser(username string, password string) bool {
 	return login_control.IsValidUser(username, password)
 }
 
-func InitDB(){
+func InitDB() {
 	login_control.InitDB()
 }
 
-func CloseDB(){
+func CloseDB() {
 	login_control.CloseDB()
 }
 
-func InsertUser(username string, password string){
+func InsertUser(username string, password string) {
 	login_control.InsertUser(username, password)
 }
 
-func GetAllUsers() ([]student.Student){
+func GetAllUsers() []student.Student {
 	return login_control.GetAllUsers()
 }
-
