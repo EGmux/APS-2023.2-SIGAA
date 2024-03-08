@@ -2,8 +2,8 @@ package sqlrepo
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
-	"sigaa.ufpe/packages/repo"
-	"sigaa.ufpe/packages/repo/structs/sqlstructs"
+	"sigaa.ufpe/packages/data/repo"
+	"sigaa.ufpe/packages/data/repo/structs/sqlstructs"
 	"sigaa.ufpe/packages/utils"
 	"sigaa.ufpe/packages/utils/logs"
 	"sigaa.ufpe/packages/utils/queries"

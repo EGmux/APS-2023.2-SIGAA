@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"sigaa.ufpe/packages/repo/structs"
+	"sigaa.ufpe/packages/data/repo/structs"
 )
 
 type IRepo interface {
