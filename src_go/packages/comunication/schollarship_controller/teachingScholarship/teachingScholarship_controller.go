@@ -3,6 +3,7 @@ package teachingscholarshipcontroller
 import (
 	"fmt"
 	"net/http"
+
 	//"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -10,13 +11,11 @@ import (
 )
 
 func teachingScholarship_controller() *gin.Engine {
-
 	r := gin.Default()
 
-	r.LoadHTMLGlob("packages/view/Schollarship//*")
+	r.LoadHTMLGlob("packages/gui/view/Schollarship//*")
 
 	r.GET("/teachingScholarship", func(ctx *gin.Context) {
-
 		ctx.HTML(http.StatusOK, "teachingScholarship.html", gin.H{
 			"title":                "Teaching Scholarships",
 			"teachingScholarships": facade.GetAvailableTeachingScholarships(),
@@ -35,14 +34,12 @@ func teachingScholarship_controller() *gin.Engine {
 		facade.Apply_Student_To_Teaching_Scholarship(User, Id)
 
 		ctx.String(http.StatusOK, "Bind bem sucesdido, Id recebido: %v", Id)
-
 	})
 
 	return r
 }
 
 func Set_Teaching_Scholarship_Controller() {
-
 	r := teachingScholarship_controller()
 	r.Run(":8083")
 }

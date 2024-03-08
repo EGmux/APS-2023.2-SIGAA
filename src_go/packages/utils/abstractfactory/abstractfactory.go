@@ -3,8 +3,8 @@ package abstractfactory
 import (
 	"os"
 
-	"sigaa.ufpe/packages/repo"
-	"sigaa.ufpe/packages/repo/sqlrepo"
+	"sigaa.ufpe/packages/data/repo"
+	"sigaa.ufpe/packages/data/repo/sqlrepo"
 )
 
 // Aliases

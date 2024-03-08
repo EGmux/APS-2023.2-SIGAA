@@ -1,27 +1,36 @@
 package login_control
 
 import (
-	student "sigaa.ufpe/packages/data/students_data"
-	data_studentsdata_studentsSQL "sigaa.ufpe/packages/data/students_data/students_SQL"
+	"os"
+
+	"sigaa.ufpe/packages/busines/validation"
+	"sigaa.ufpe/packages/data/repo/structs"
+	"sigaa.ufpe/packages/utils/queries"
 )
 
-
 func IsValidUser(username string, password string) bool {
-	return data_studentsdata_studentsSQL.IsValidUser(username, password)
+	return validation.IsValidUser(username, password)
 }
 
-func Init_StudentsDB(){
-	data_studentsdata_studentsSQL.Init_Students_DB()
+func Init_StudentsDB() {
+	queries.ConnectDB()
 }
 
-func CloseDB(){
-	data_studentsdata_studentsSQL.CloseDB()
+func CloseDB() {
+	// NOTE: need to also consider JSON db
+	queries.CloseConnectionDB(os.Getenv("PGDATABASE"))
 }
 
-func InsertUser(username string, password string){
-	data_studentsdata_studentsSQL.InsertUser(username, password)
+func InsertUser(username string, password string) {
+	queries.InsertRow(
+		"float",
+		"0",
+		"credentials",
+		queries.RowElem{"name", username},
+		queries.RowElem{"password", password},
+	)
 }
 
-func GetAllUsers() ([]student.Student){
-	return data_studentsdata_studentsSQL.GetAllUsers()
+func GetAllUsers() []structs.Credentials {
+	return nil
 }

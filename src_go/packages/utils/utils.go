@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"sigaa.ufpe/packages/repo/structs"
-	"sigaa.ufpe/packages/repo/structs/sqlstructs"
+	"sigaa.ufpe/packages/data/repo/structs"
+	"sigaa.ufpe/packages/data/repo/structs/sqlstructs"
 )
 
 type Direction int

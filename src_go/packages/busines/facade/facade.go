@@ -4,8 +4,7 @@ import (
 	login_control "sigaa.ufpe/packages/busines/login_control"
 	scholarshipcontrol "sigaa.ufpe/packages/busines/scholarship_control"
 	teachingscholarshipcontrol "sigaa.ufpe/packages/busines/scholarship_control/teaching_scholarship_control"
-	teachingscholarship "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship"
-	student "sigaa.ufpe/packages/data/students_data"
+	"sigaa.ufpe/packages/data/repo/structs"
 )
 
 func IsValidUser(username string, password string) bool {
@@ -24,15 +23,15 @@ func InsertUser(username string, password string) {
 	login_control.InsertUser(username, password)
 }
 
-func GetAllUsers() []student.Student {
+func GetAllUsers() []structs.Credentials {
 	return login_control.GetAllUsers()
 }
 
-func GetAllTeachingScholarships() []teachingscholarship.TeachingScholarship {
+func GetAllTeachingScholarships() []structs.TeachingScholarship {
 	return scholarshipcontrol.GetAllTeachingScholarships()
 }
 
-func GetAvailableTeachingScholarships() []teachingscholarship.TeachingScholarship {
+func GetAvailableTeachingScholarships() []structs.TeachingScholarship {
 	return scholarshipcontrol.GetAvailableTeachingScholarships()
 }
 

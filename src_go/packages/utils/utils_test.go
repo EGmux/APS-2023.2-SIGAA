@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"sigaa.ufpe/packages/repo/structs"
+	"sigaa.ufpe/packages/data/repo/structs"
 	"sigaa.ufpe/packages/repo/structs/sqlstructs"
 )
 

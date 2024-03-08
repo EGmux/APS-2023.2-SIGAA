@@ -1,15 +1,15 @@
 package scholarshipcontrol
 
 import (
-	teachingscholarship "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship"
+	"sigaa.ufpe/packages/data/repo/structs"
 	teachingscholarshipsql "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship/teachingScholarship_SQL"
 )
 
-
-func GetAvailableTeachingScholarships() []teachingscholarship.TeachingScholarship{
+func GetAvailableTeachingScholarships() []structs.TeachingScholarship {
 	return teachingscholarshipsql.GetAvailableTeachingScholarships()
 }
 
-func GetAllTeachingScholarships() []teachingscholarship.TeachingScholarship{
+func GetAllTeachingScholarships() []structs.TeachingScholarship {
 	return teachingscholarshipsql.GetAllTeachingScholarships()
 }
+
