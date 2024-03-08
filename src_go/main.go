@@ -3,12 +3,12 @@ package main
 import (
 	_ "github.com/joho/godotenv/autoload"
 
-	"sigaa.ufpe/packages/comunication/login_controller"
-	"sigaa.ufpe/packages/comunication/main_menu_controller"
-	schollarshipcontroller "sigaa.ufpe/packages/comunication/schollarship_controller"
-	teachingscholarshipcontroller "sigaa.ufpe/packages/comunication/schollarship_controller/teachingScholarship"
-	teachingscholarshipsql "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship/teachingScholarship_SQL"
-	data_studentsdata_studentsSQL "sigaa.ufpe/packages/data/students_data/students_SQL"
+	"sigaa.ufpe/pkgs/comunication/login_controller"
+	"sigaa.ufpe/pkgs/comunication/main_menu_controller"
+	schollarshipcontroller "sigaa.ufpe/pkgs/comunication/schollarship_controller"
+	teachingscholarshipcontroller "sigaa.ufpe/pkgs/comunication/schollarship_controller/teachingScholarship"
+	teachingscholarshipsql "sigaa.ufpe/pkgs/data/scholarship_data/teachingScholarship/teachingScholarship_SQL"
+	data_studentsdata_studentsSQL "sigaa.ufpe/pkgs/data/students_data/students_SQL"
 )
 
 var db = make(map[string]string)
