@@ -140,7 +140,7 @@ func TableExists(name string) (bool, error) {
 	return false, err
 }
 
-// Return all rows pertaining to table
+// INPLACE, pass ptr address! Return all rows pertaining to table
 func returnRows(structaddr any, table string, id string, args ...string) error {
 	columns := convertToColumns(id, args...)
 	err := pgxscan.Select(context.Background(), conn, structaddr, `SELECT `+columns+` FROM `+table)
@@ -162,8 +162,8 @@ func convertToColumns(id string, args ...string) string {
 	return columns
 }
 
-// Insert rows into struct based on db query
-func InsertIntoStruct(
+// INPLACE, pass ptr address! Insert rows into struct based on db query
+func InsertIntoSQLStruct(
 	structptr any,
 	tag DBQUERY,
 	table string,

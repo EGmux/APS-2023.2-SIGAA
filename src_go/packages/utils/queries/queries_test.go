@@ -2,6 +2,7 @@ package queries
 
 import (
 	"os"
+	// TODO: re-do with default test lib
 	"testing"
 
 	"github.com/jackc/pgx/v5"
@@ -103,7 +104,7 @@ func (suite *QueriesTestSuite) TestTableExists() {
 
 func (suite *QueriesTestSuite) TestReturnRows() {
 	justcreated := "empty"
-	err := InsertIntoStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
+	err := InsertIntoSQLStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
 	if err != nil {
 		logs.InsertRows("TestReturnRows", "repo", "justcreated", err)
 	}
@@ -115,7 +116,7 @@ func (suite *QueriesTestSuite) TestReturnRows() {
 	if err != nil {
 		logs.InsertRows("TestReturnRows", "repo", "modifiedtable", err)
 	}
-	InsertIntoStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
+	InsertIntoSQLStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
 	if !suite.Len(suite.repo, 1) {
 		suite.T().Log("Failed Must be at most 1 row returned")
 	}
