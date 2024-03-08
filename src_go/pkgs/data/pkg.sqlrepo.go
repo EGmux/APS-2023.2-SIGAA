@@ -2,9 +2,7 @@ package data
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
-	"sigaa.ufpe/pkgs/utils"
-	"sigaa.ufpe/pkgs/utils/logs"
-	"sigaa.ufpe/pkgs/utils/queries"
+	"sigaa.ufpe/pkgs/utils/"
 )
 
 type SQLRepository struct {
@@ -50,20 +48,20 @@ func createIfExistORReturnSQLRepoT[T SQLTablesPtrs](
 	id string,
 	columns ...string,
 ) error {
-	err := queries.ConnectDB()
+	err := utils.ConnectDB()
 	if err != nil {
-		logs.ConnectDB(repoName, err)
+		.ConnectDB(repoName, err)
 	}
 	var exists bool
-	exists, err = queries.TableExists(tableName)
+	exists, err = .TableExists(tableName)
 	if err != nil {
-		logs.TableExists(repoName, tableName, err)
+		.TableExists(repoName, tableName, err)
 	}
 	if exists {
-		err = queries.InsertIntoSQLStruct(repoType, queries.SELECT_ALL, tableName, id, columns...)
+		// err = .InsertIntoSQLStruct(repoType, .SELECT_ALL, tableName, id, columns...)
 	}
 	if err != nil {
-		logs.InsertRows(repoName, repoName, tableName, err)
+		.InsertRows(repoName, repoName, tableName, err)
 	}
 	return err
 }
