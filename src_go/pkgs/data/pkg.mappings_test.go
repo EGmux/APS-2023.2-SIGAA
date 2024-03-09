@@ -199,12 +199,12 @@ func deepCheck[T SQLTablesPtrs, V TablePtrs](
 func TestMapSQLToStruct(t *testing.T) {
 	utils.iter = 0
 	utils.TestSetup()
-	ConvertSQLToList(&credentialSQLRepo, &credentialsRepo)
-	ConvertSQLToList(&proaesSQLRRepo, &proaesRepo)
-	ConvertSQLToList(&professorSQLRepo, &proaesRepo)
-	ConvertSQLToList(&classSQLRepo, &classRepo)
-	ConvertSQLToList(&studentSQLRepo, &studentRepo)
-	ConvertSQLToList(&gradeSQLRepo, &gradeRepo)
+	MapSQLStruct(&credentialSQLRepo, &credentialsRepo, mappingCredentials, SQLTOSTRUCT)
+	MapSQLStruct(&proaesSQLRRepo, &proaesRepo, mappingPROAES, SQLTOSTRUCT)
+	MapSQLStruct(&professorSQLRepo, &professorRepo, mappingProfessor, SQLTOSTRUCT)
+	MapSQLStruct(&classSQLRepo, &classRepo, mappingClass, SQLTOSTRUCT)
+	MapSQLStruct(&studentSQLRepo, &studentRepo, mappingStudent, SQLTOSTRUCT)
+	MapSQLStruct(&gradeSQLRepo, &gradeRepo, mappingGrades, SQLTOSTRUCT)
 
 	deepCheck(t, credentialSQLRepo, credentialsRepo, deepCheckCredentials)
 	deepCheck(t, proaesSQLRRepo, proaesRepo, deepChecPROAES)
@@ -219,13 +219,12 @@ func TestMapSQLToStruct(t *testing.T) {
 func TestMapStructToSQL(t *testing.T) {
 	utils.iter = 0
 	utils.TestSetup()
-	ConvertStructToSQL(&credentialSQLRepo, &credentialsRepo)
-	ConvertStructToSQL(&credentialSQLRepo, &credentialsRepo)
-	ConvertStructToSQL(&proaesSQLRRepo, &proaesRepo)
-	ConvertStructToSQL(&professorSQLRepo, &proaesRepo)
-	ConvertStructToSQL(&classSQLRepo, &classRepo)
-	ConvertStructToSQL(&studentSQLRepo, &studentRepo)
-	ConvertStructToSQL(&gradeSQLRepo, &gradeRepo)
+	MapSQLStruct(&credentialSQLRepo, &credentialsRepo, mappingCredentials, SQLTOSTRUCT)
+	MapSQLStruct(&proaesSQLRRepo, &proaesRepo, mappingPROAES, SQLTOSTRUCT)
+	MapSQLStruct(&professorSQLRepo, &professorRepo, mappingProfessor, SQLTOSTRUCT)
+	MapSQLStruct(&classSQLRepo, &classRepo, mappingClass, SQLTOSTRUCT)
+	MapSQLStruct(&studentSQLRepo, &studentRepo, mappingStudent, SQLTOSTRUCT)
+	MapSQLStruct(&gradeSQLRepo, &gradeRepo, mappingGrades, SQLTOSTRUCT)
 
 	deepCheck(t, credentialSQLRepo, credentialsRepo, deepCheckCredentials)
 	deepCheck(t, proaesSQLRRepo, proaesRepo, deepChecPROAES)

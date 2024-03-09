@@ -8,6 +8,8 @@ PGHOST = "localhost"
 PGPASSWORD = "1234"
 PGPORT = "5432"
 
+DBTECH = "SQL"
+
 
 [tools]
 go = '1.22.0'

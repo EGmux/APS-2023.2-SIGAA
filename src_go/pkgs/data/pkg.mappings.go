@@ -18,7 +18,7 @@ func AbsInt(x int) int {
 }
 
 // Inplace, pass &, Convert a list of struct pointer to list of struct SQL, assuming both are equivalent
-func ConvertSQLToList[U SQLTablesPtrs, V TablePtrs](
+func MapSQLStruct[U SQLTablesPtrs, V TablePtrs](
 	listSrcType *[]*U,
 	listDestType *[]*V,
 	mapping func(*V, *U, Direction) error,

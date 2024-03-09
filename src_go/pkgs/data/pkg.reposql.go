@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/pkg/errors"
 	util "sigaa.ufpe/pkgs/utils"
@@ -46,22 +48,26 @@ func createIfExistORReturnSQLRepo[T SQLTablesPtrs](
 	tableName string,
 	repoType *[]*T,
 	sqlQuery string,
-	fallbackSqlQuery string,
+	path string,
 ) error {
-	err := errors.New("rerro")
+	var err error
+	err = util.DB.ConnectDB()
 	if err != nil {
-		util.DB.ConnectDB()
+		return errors.New("Fail to connectDB")
 	}
 	var exists bool
 	exists, err = util.DB.TableExists(tableName)
 	if err != nil {
-		util.DB.TableExists(tableName)
+		errors.New("Error table existence")
 	}
 	if exists {
 		err = util.DB.Query(repoType, sqlQuery)
-	}
-	if err != nil {
-		err = util.DB.Transaction(fallbackSqlQuery)
+	} else {
+		if err != nil {
+			out, err := util.DB.ImportTable(path)
+			fmt.Printf(out)
+			return err
+		}
 	}
 	return err
 }
@@ -77,7 +83,7 @@ func ConvertBetweenSQLandStruct[T SQLTablesPtrs, V TablePtrs](
 	if err != nil {
 		return errors.New("failed retrieving repo")
 	}
-	err = ConvertSQLToList(r, credential, m, d)
+	err = MapSQLStruct(r, credential, m, d)
 	if err != nil {
 		return errors.New("Failed to Convert SQL to List")
 	}
@@ -90,7 +96,7 @@ func (s SQLRepository) CreateCredentialRepo() error {
 		"credentials",
 		&CredentialSQLRepo,
 		"SELECT from credentials (idcredential, passwd, username, logged)",
-		"INSERT INTO credentials (idcredential, passwd, username) VALUES (0, 'NULL', 'NULL')",
+		"./assets/credential.sql",
 	)
 	err = ConvertBetweenSQLandStruct(
 		&CredentialSQLRepo,
@@ -106,7 +112,7 @@ func (s SQLRepository) CreatePROAESRepo() error {
 		"PROAES",
 		&ProaesSQLRepo,
 		"SELECT from PROAES (idproaes, email) ",
-		"INSERT INTO credentials (idproaes, email) VALUES (0, 'NULL')",
+		"./assets/proaes.sql",
 	)
 	err = ConvertBetweenSQLandStruct(&ProaesSQLRepo, s.repo.GetPROAES, mappingPROAES, SQLTOSTRUCT)
 	return err
@@ -117,7 +123,7 @@ func (s SQLRepository) CreateEnrollmentRepo() error {
 		"enrollments",
 		&EnrollmentSQLRepo,
 		"SELECT from enrollment (idenrollment, name, status) ",
-		"INSERT INTO enrollment (idenrollment, name, status) VALUES (0, 'NULL')",
+		"./assets/enrollment.sql",
 	)
 	err = ConvertBetweenSQLandStruct(
 		&EnrollmentSQLRepo,
@@ -133,7 +139,7 @@ func (s SQLRepository) CreateProfessorRepo() error {
 		"professors",
 		&ProfessorSQLRepo,
 		"SELECT from professors (idprofessor, name) ",
-		"INSERT INTO professors (idprofessor, name) VALUES (0, 'NULL')",
+		"./assets/professor.sql",
 	)
 	err = ConvertBetweenSQLandStruct(
 		&ProfessorSQLRepo,
@@ -149,7 +155,7 @@ func (s SQLRepository) CreateClassRepo() error {
 		"classes",
 		&ClassSQLRepo,
 		"SELECT from classes (idclass, location, professor, students) ",
-		"INSERT INTO classes (idclass, location, professor, students) VALUES (0, 'NULL', 'NULL', 'NULL', 'NULL')",
+		"./assets/class.sql",
 	)
 	err = ConvertBetweenSQLandStruct(&ClassSQLRepo, s.repo.GetClasses, mappingClass, SQLTOSTRUCT)
 	return err
@@ -160,7 +166,7 @@ func (s SQLRepository) CreateStudentRepo() error {
 		"student",
 		&StudentSQLRepo,
 		"SELECT from students (idstudent, name, transcript) ",
-		"INSERT INTO students (idstudent, name, transcript) VALUES (0, 'NULL', 'NULL')",
+		"./assets/students.sql",
 	)
 	err = ConvertBetweenSQLandStruct(
 		&StudentSQLRepo,

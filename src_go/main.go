@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "github.com/joho/godotenv/autoload"
+	"sigaa.ufpe/pkgs/data"
 	// teachingscholarshipsql "sigaa.ufpe/pkgs/data/scholarship_data/teachingScholarship/teachingScholarship_SQL"
 	// data_studentsdata_studentsSQL "sigaa.ufpe/pkgs/data/students_data/students_SQL"
 )
@@ -12,6 +13,15 @@ func main() {
 	channel := make(chan bool)
 	println("test 🤛")
 
+	irepo, _ := data.GetReposFactory()
+	repos, _ := irepo.ReturnRepos()
+	crepo, _ := repos.GetCredentials()
+	for _, c := range *crepo {
+		println(c.Id)
+		println(c.Password)
+		println(c.User)
+		println(c.Logged)
+	}
 	// teachingscholarshipsql.Init_TeachingScholarship_DB()
 	// data_studentsdata_studentsSQL.Init_Students_DB()
 	// go teachingscholarshipcontroller.Set_Teaching_Scholarship_Controller()
