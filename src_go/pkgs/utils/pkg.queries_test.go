@@ -34,13 +34,7 @@ func (suite *QueriesTestSuite) SetupSuite() {
 }
 
 func (suite *QueriesTestSuite) SetupTest() {
-	err := DB.CreateEmptyTable(
-		"id",
-		"serial primary key",
-		"empty",
-		RowElem{"param1", "text"},
-		RowElem{"param2", "text"},
-	)
+	err := DB.Transaction("CREATE TABLE empty (id serial primary key, param1 text, param2 text)")
 	if err != nil {
 		logs.CreateTable("SetupTest", "empty", err)
 	}
@@ -91,7 +85,7 @@ func (suite *QueriesTestSuite) TestTableExists() {
 		suite.T().Log("Table that was never created")
 	}
 	modifiedtable := justcreated
-	DB.InsertRow("id", "13", modifiedtable, RowElem{"param1", "12"}, RowElem{"param2", "45"})
+	DB.Transaction("INSERT INTO empty (id, param1, param2) VALUES (13, 12, 45)")
 	exist, err = DB.TableExists(modifiedtable)
 	if err != nil && suite.opts.showerrors {
 		logs.InsertRows("TestTableExists", "repo", "modifiedtable", err)
@@ -102,34 +96,33 @@ func (suite *QueriesTestSuite) TestTableExists() {
 }
 
 func (suite *QueriesTestSuite) TestReturnRows() {
-	justcreated := "empty"
-	err := DB.InsertIntoSQLStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
+	var err error
+	err = DB.Query(&suite.repo, "SELECT (id, param1, param2) from empty")
 	if err != nil {
 		logs.InsertRows("TestReturnRows", "repo", "justcreated", err)
 	}
 	if !suite.Len(suite.repo, 0) {
 		suite.T().Log("Failed Must be zero rows returned")
 	}
-	modifiedtable := justcreated
-	err = DB.InsertRow("id", "12", modifiedtable, RowElem{"param1", "13"}, RowElem{"param2", "23"})
+	err = DB.Transaction("INSERT INTO  empty(id, param1, param2) values (12,13,23)")
 	if err != nil {
 		logs.InsertRows("TestReturnRows", "repo", "modifiedtable", err)
 	}
-	DB.InsertIntoSQLStruct(&suite.repo, SELECT_ALL, "empty", "id", "param1", "param2")
+	err = DB.Query(&suite.repo, "SELECT (id, param1, param2) from empty")
 	if !suite.Len(suite.repo, 1) {
 		suite.T().Log("Failed Must be at most 1 row returned")
 	}
 }
 
 func (suite *QueriesTestSuite) TestImportSQL() {
-	errMessage, err := DB.ImportSQL("")
+	errMessage, err := DB.ImportTable("")
 	if err != nil && suite.opts.showerrors {
 		logs.ImportSQL("TestImportSql", "", err)
 	}
 	if !suite.Equal(errMessage, "") {
 		suite.T().Log("Importing a non exitent PATH must fail")
 	}
-	errMessage, err = DB.ImportSQL("./testdata/test.sql")
+	errMessage, err = DB.ImportTable("./testdata/test.sql")
 	if err != nil && suite.opts.showerrors {
 		logs.ImportSQL("TestImportSQL", "./testdata/test.sql", err)
 	}
@@ -137,7 +130,7 @@ func (suite *QueriesTestSuite) TestImportSQL() {
 	if !suite.True(DB.TableExists("test")) {
 		suite.T().Log("Importing a valid PATH must not fail")
 	}
-	errMessage, err = DB.ImportSQL("./testdata/wrong.sql")
+	errMessage, err = DB.ImportTable("./testdata/wrong.sql")
 	if err != nil && suite.opts.showerrors {
 		logs.ImportSQL("TestImportSQL", "./testdata/wrong.sql", err)
 	}

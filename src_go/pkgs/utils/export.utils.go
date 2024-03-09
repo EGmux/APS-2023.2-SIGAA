@@ -6,4 +6,7 @@ const (
 
 type DBQUERY int64
 
+// for multithreading
+// type RepoConn RepositoryConn
+
 var DB RepositoryConn
