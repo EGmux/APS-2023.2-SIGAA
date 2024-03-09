@@ -146,7 +146,7 @@ func deepCheckClass(
 	if !cmp.Equal(u[pos].Id, v[pos].Id) ||
 		!cmp.Equal(u[pos].Required, v[pos].Mandatory) ||
 		!cmp.Equal(u[pos].Timetable, v[pos].Timetable) ||
-		!cmp.Equal(u[pos].Assesment, v[pos].Assesment) ||
+		!cmp.Equal(u[pos].Assessments, v[pos].Assessments) ||
 		!cmp.Equal(u[pos].Capacity, v[pos].Capacity) || rangeOver() {
 		return false, errors.New("Class Bug")
 	}

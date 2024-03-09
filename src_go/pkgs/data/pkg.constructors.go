@@ -48,13 +48,13 @@ func proaesC() *PROAES {
 
 func classC() *Class {
 	return &Class{
-		Id:              0,
 		Capacity:        0,
 		Mandatory:       false,
 		Timetable:       "",
-		Assesment:       "",
-		Professor:       []*Professor{professorC()},
-		Grades:          []*Grade{gradesC()},
+		Assessments:     []string{},
+		Professor:       []*Professor{},
+		Grades:          []*Grade{},
+		Id:              0,
 		StudentClass_:   StudentClass{},
 		RecursiveClass_: RecursiveClass{},
 	}

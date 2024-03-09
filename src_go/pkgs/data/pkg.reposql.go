@@ -1,8 +1,6 @@
 package data
 
 import (
-	"fmt"
-
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/pkg/errors"
 	util "sigaa.ufpe/pkgs/utils"
@@ -40,6 +38,10 @@ func (s SQLRepository) ReturnRepos() (IRepo, error) {
 	if err != nil {
 		return nil, err
 	}
+	err = s.CreaseCourseRepo()
+	if err != nil {
+		return nil, err
+	}
 	return &s.repo, nil
 }
 
@@ -50,24 +52,21 @@ func createIfExistORReturnSQLRepo[T SQLTablesPtrs](
 	sqlQuery string,
 	path string,
 ) error {
-	var err error
-	err = util.DB.ConnectDB()
+	err := errors.New("rerro")
 	if err != nil {
-		return errors.New("Fail to connectDB")
+		util.DB.ConnectDB()
 	}
 	var exists bool
 	exists, err = util.DB.TableExists(tableName)
 	if err != nil {
-		errors.New("Error table existence")
+		util.DB.TableExists(tableName)
 	}
 	if exists {
 		err = util.DB.Query(repoType, sqlQuery)
-	} else {
-		if err != nil {
-			out, err := util.DB.ImportTable(path)
-			fmt.Printf(out)
-			return err
-		}
+	}
+	if err != nil {
+		_, err := util.DB.ImportTable(path)
+		return err
 	}
 	return err
 }
@@ -172,6 +171,22 @@ func (s SQLRepository) CreateStudentRepo() error {
 		&StudentSQLRepo,
 		s.repo.GetStudents,
 		mappingStudent,
+		SQLTOSTRUCT,
+	)
+	return err
+}
+
+func (s SQLRepository) CreaseCourseRepo() error {
+	err := createIfExistORReturnSQLRepo(
+		"courses",
+		&CourseSQLRepo,
+		"SELECT from courses (idcourse, curriculum, department, name) ",
+		"./assets/courses.sql",
+	)
+	err = ConvertBetweenSQLandStruct(
+		&CourseSQLRepo,
+		s.repo.GetCourses,
+		mappingCourses,
 		SQLTOSTRUCT,
 	)
 	return err

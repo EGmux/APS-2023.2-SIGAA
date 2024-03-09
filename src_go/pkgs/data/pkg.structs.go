@@ -21,13 +21,13 @@ type TablePtrs interface {
 
 // Default structs
 type Class struct {
-	Capacity  int
-	Mandatory bool
-	Timetable string
-	Assesment string
-	Professor []*Professor
-	Grades    []*Grade
-	Id        float64
+	Capacity    int
+	Mandatory   bool
+	Timetable   string
+	Assessments []string
+	Professor   []*Professor
+	Grades      []*Grade
+	Id          float64
 	// Never copy this struct
 	StudentClass_   StudentClass
 	RecursiveClass_ RecursiveClass

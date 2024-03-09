@@ -86,7 +86,10 @@ func mappingStudent(d *Student, s *StudentSQL, dir Direction) error {
 func mappingClass(d *Class, s *ClassSQL, dir Direction) error {
 	if dir == SQLTOSTRUCT {
 		d.Id = s.Id
-		d.Assesment = s.Assesment
+		for p := range s.Assessments {
+			d.Assessments[p] = s.Assessments[p]
+		}
+		d.Assessments = s.Assessments
 		d.Timetable = s.Timetable
 		d.Mandatory = s.Required
 		d.Capacity = s.Capacity
@@ -95,7 +98,10 @@ func mappingClass(d *Class, s *ClassSQL, dir Direction) error {
 		}
 	} else if dir == STRUCTTOSQL {
 		s.Id = d.Id
-		s.Assesment = d.Assesment
+		s.Assessments = d.Assessments
+		for p := range s.Assessments {
+			s.Assessments[p] = d.Assessments[p]
+		}
 		s.Timetable = d.Timetable
 		s.Required = d.Mandatory
 		s.Capacity = d.Capacity

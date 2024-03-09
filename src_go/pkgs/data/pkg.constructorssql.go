@@ -75,7 +75,7 @@ func classSQLC() *ClassSQL {
 		Capacity:           capacities[rand.Intn(len(capacities))],
 		Required:           required[rand.Intn(len(required))],
 		Timetable:          timetables[rand.Intn(len(timetables))],
-		Assesment:          assessments[rand.Intn(len(assessments))],
+		Assessments:        assessments,
 		Professor:          []*ProfessorSQL{professorSQLC()},
 		Grades:             []*GradeSQL{gradesSQLC()},
 		StudentClassSQL_:   StudentClassSQL{},

@@ -80,8 +80,8 @@ type ClassSQL struct {
 	Capacity           int               `db:"capacity"`
 	Required           bool              `db:"required"`
 	Timetable          string            `db:"timetable"`
-	Assesment          string            `db:"assesment"`
-	Professor          []*ProfessorSQL   `db:"professor"`
+	Assessments        []string          `db:"assessments"`
+	Professor          []*ProfessorSQL   `db:"professors"`
 	Grades             []*GradeSQL       `db:"grades"`
 	StudentClassSQL_   StudentClassSQL   `db:"studentclass"`
 	RecursiveClassSQL_ RecursiveClassSQL `db:"recursiveclass"`

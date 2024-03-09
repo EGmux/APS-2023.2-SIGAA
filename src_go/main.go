@@ -10,7 +10,7 @@ import (
 var db = make(map[string]string)
 
 func main() {
-	channel := make(chan bool)
+	// channel := make(chan bool)
 	println("test 🤛")
 
 	irepo, _ := data.GetReposFactory()
@@ -29,5 +29,5 @@ func main() {
 	// go main_menu_controller.Set_Main_Menu_Controller()
 	// go login_controller.Set_Login_Controller()
 	// Listen and Server in 0.0.0.0:8080
-	<-channel
+	// <-channel
 }
