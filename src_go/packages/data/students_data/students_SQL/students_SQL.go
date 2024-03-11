@@ -123,3 +123,14 @@ func Update_Student_Enrollment(username string, classes []class.Class){
 	}
 
 }
+
+func Update_Student_Deferral(username string){
+	db = singleton_db.Refer_DB()
+
+	query := "UPDATE students  SET deferral=true , enrolled=false , disciplines=NULL WHERE usr='"+username+"'"
+	_, err := db.Exec(context.Background(), query)
+	if err != nil{
+		fmt.Println(err)
+		log.Fatal("student_SQL.go: Error duting UPDATE Query")
+	}
+}

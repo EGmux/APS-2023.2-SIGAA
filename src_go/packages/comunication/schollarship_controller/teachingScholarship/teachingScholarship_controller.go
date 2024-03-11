@@ -13,7 +13,7 @@ func teachingScholarship_controller() *gin.Engine {
 
 	r := gin.Default()
 
-	r.LoadHTMLGlob("packages/view/Schollarship//*")
+	r.LoadHTMLGlob("packages/view/Schollarship/*")
 
 	r.GET("/teachingScholarship", func(ctx *gin.Context) {
 

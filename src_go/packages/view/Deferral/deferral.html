@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+<body>
+    <h1>Deferral</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            
+            
+            <p>Defferal: {{ .student.Deferral}} </p>
+            
+            
+            
+
+            <p></p>
+        </div>
+
+        {{ if .student.Deferral }}
+        <div> <p>The student is already on Deferral</p> </div>
+        {{ else }}
+            <form method="POST", action="/deferral/apply?studentUser={{.student.User}}">
+                <input type="submit" value="Deferal Enrollment" /> 
+
+            </form>
+        {{ end }}
+        
+</body>
+</html>
