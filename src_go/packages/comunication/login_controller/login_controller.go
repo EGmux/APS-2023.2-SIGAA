@@ -31,7 +31,8 @@ func loginController() *gin.Engine {
 		
 		if facade.IsValidUser(student.User, student.Password) {
             // Redirecionar para a página principal em caso de autenticação bem-sucedida
-            ctx.Redirect(http.StatusMovedPermanently, "/mainMenu")
+            ctx.Redirect(http.StatusMovedPermanently, "/mainMenu?studentUser="+student.User)
+	
         }
 		
 	})
@@ -55,7 +56,8 @@ func loginController() *gin.Engine {
 	})
 
 	r.GET("/mainMenu", func(ctx *gin.Context){
-		ctx.Redirect(http.StatusMovedPermanently, "http://localhost:8081/mainMenu")
+		var studentUser = ctx.Query("studentUser")
+		ctx.Redirect(http.StatusMovedPermanently, "http://localhost:8081/mainMenu?studentUser="+studentUser)
 	})
 
 	return r
@@ -63,8 +65,7 @@ func loginController() *gin.Engine {
 
 
 func Set_Login_Controller() {
-	facade.InitDB()
-	defer facade.CloseDB()
+	
 	r := loginController()
 	r.Run(":8080")
 }

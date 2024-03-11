@@ -7,8 +7,27 @@
 </head>
 <body>
     <h1>Main Menu</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            {{ if .student.Disciplines}}
+                <p>Disciplines: {{.student.Disciplines}} </p>   
+            {{ else }}
+                <p>Disciplines: Student is not Enrolled</p>
+            {{ end }}
+            <p>Defferal: {{ .student.Deferral}} </p>
+            <p>Enrollment: {{ .student.Enrolled}} </p>
+            {{ if .student.Historic}}
+                <p>Historic: Student have historic</p>
+            {{ else }}
+                <p>Historic: Student does not have historic yet</p>
+            {{ end }}
+
+
+            <p></p>
+        </div>
         <div ><a href="/enrollment">Enrollment</a></div>
-        <div><a href="http://localhost:8081/scholar">Apply to Schollarship</a></div>
+        <div><a href="/scholar">Apply to Schollarship</a></div>
         <div><a href="/certification-enrollment">Issue Enrollment Certification</a></div>
         <div><a href="/visualize-grade">Visualize Grades</a></div>
         <div><a href="/Deferral">Deferral</a></div>

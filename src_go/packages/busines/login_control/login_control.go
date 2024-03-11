@@ -10,18 +10,14 @@ func IsValidUser(username string, password string) bool {
 	return data_studentsdata_studentsSQL.IsValidUser(username, password)
 }
 
-func Init_StudentsDB(){
-	data_studentsdata_studentsSQL.Init_Students_DB()
-}
-
-func CloseDB(){
-	data_studentsdata_studentsSQL.CloseDB()
-}
-
 func InsertUser(username string, password string){
 	data_studentsdata_studentsSQL.InsertUser(username, password)
 }
 
 func GetAllUsers() ([]student.Student){
 	return data_studentsdata_studentsSQL.GetAllUsers()
+}
+
+func GetUser(username string) []student.Student{
+	return data_studentsdata_studentsSQL.GetUser(username)
 }

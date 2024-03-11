@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+<body>
+    <h1>Enrollment</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            {{ if .student.Disciplines}}
+                <p>Disciplines: Student is Enrolled</p>
+            {{ else }}
+                <p>Disciplines: Student is not Enrolled</p>
+            {{ end }}
+            <p>Enrollment: {{ .student.Enrolled}} </p>
+            <p></p>
+
+        </div>
+
+        <div>
+            <h1>Select the Disciplines</h1>
+            
+            <form action="/enrollment/apply?studentUser={{.username}}", method="POST">
+                <table border="1">
+                    
+                    <tr>
+                        <th>Name</th>
+                        <th>Capacity</th>
+                        <th>Mandatory</th>
+                        <th>Timetable</th>
+                        <th>Professor</th>
+                        <th>Semester</th>
+                    </tr>
+
+                    {{ range .classes}}
+                    <tr>
+                        <td> {{ .Name}} </td>
+                        <td> {{ .Capacity}} </td>
+                        <td> {{ .Mandatory}} </td>
+                        <td> {{ .Timetable}} </td>
+                        <td> {{ .Professor.Name}} </td>
+                        <td> {{ .Semester}} </td>
+                        <td>  <input type="checkbox" name="selectedClasses", value="{{ .Name}}">  </td>
+
+                    </tr>
+                    {{end}}
+
+                </table>
+                <br>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    
+
+</body>
+</html>
