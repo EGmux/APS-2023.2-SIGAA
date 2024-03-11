@@ -42,6 +42,11 @@ func main_menu_controller() *gin.Engine{
 		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8084/enrollment?studentUser="+username)
 	})
 
+	r.GET("/deferral", func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8085/deferral?studentUser="+username)
+	})
+
+
 	return r
 
 }

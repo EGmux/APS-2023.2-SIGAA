@@ -1,6 +1,7 @@
 package facade
 
 import (
+	deferralcontrol "sigaa.ufpe/packages/busines/deferral_control"
 	enrollmentcontrol "sigaa.ufpe/packages/busines/enrollment_control"
 	login_control "sigaa.ufpe/packages/busines/login_control"
 	scholarshipcontrol "sigaa.ufpe/packages/busines/scholarship_control"
@@ -49,4 +50,8 @@ func GetSelectedClasses(selectedClasses []string) []class.Class{
 
 func Update_Student_Enrollment(student string, classes []class.Class){
 	enrollmentcontrol.Update_Student_Enrollment(student, classes)
+}
+
+func Update_Student_Deferral(username string){
+	deferralcontrol.Update_Student_Deferral(username)
 }
