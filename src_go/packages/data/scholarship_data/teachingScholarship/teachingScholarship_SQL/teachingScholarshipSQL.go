@@ -4,29 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
+	
 
 	"github.com/jackc/pgx/v4/pgxpool"
 	teachingscholarship "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship"
+	singleton_db "sigaa.ufpe/packages/utils/singleton"
 )
 
 var db *pgxpool.Pool
 
-func Init_TeachingScholarship_DB() {
-	var err error
-	fmt.Println(context.Background(), os.Getenv("DATABASE_URL"))
-	db, err = pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
-	if err != nil {
-		fmt.Println("Fail")
-		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
-	}
-}
-
-func Close_TeachigScholarship_DB() {
-	db.Close()
-}
-
 func GetAvailableTeachingScholarships() []teachingscholarship.TeachingScholarship {
+	db = singleton_db.Refer_DB()
 	rows, err := db.Query(context.Background(), "SELECT identifier, value, scholarship_class, semester, professor FROM teachingscholarship WHERE student IS NULL")
 	if err != nil {
 		log.Fatal("TeachingScholarship.go : It was not possible to realize the querry")
@@ -51,6 +39,7 @@ func GetAvailableTeachingScholarships() []teachingscholarship.TeachingScholarshi
 }
 
 func GetAllTeachingScholarships() []teachingscholarship.TeachingScholarship {
+	db = singleton_db.Refer_DB()
 	rows, err := db.Query(context.Background(), "SELECT identifier, value, scholarship_class, semester, professor FROM teachingscholarship")
 	if err != nil {
 		log.Fatal("TeachingScholarship.go : It was not possible to realize the querry")
@@ -76,6 +65,7 @@ func GetAllTeachingScholarships() []teachingscholarship.TeachingScholarship {
 
 
 func Get_Teaching_Scholarship_By_Id(Scholarship_Id string) []teachingscholarship.TeachingScholarship{
+	db = singleton_db.Refer_DB()
 	var teachingScholarships []teachingscholarship.TeachingScholarship
 	fmt.Println(Scholarship_Id)
 	row, err := db.Query(context.Background(), "SELECT identifier, value, scholarship_class, semester, professor FROM teachingscholarship WHERE identifier = $1",Scholarship_Id)
@@ -100,6 +90,8 @@ func Get_Teaching_Scholarship_By_Id(Scholarship_Id string) []teachingscholarship
 }
 
 func Associate_Student_To_Teaching_Scholarship(Scholarship_Id int, Student_Name string) {
+	db = singleton_db.Refer_DB()
+
 	_, err := db.Exec(context.Background(), "UPDATE teachingscholarship SET student = $1 WHERE identifier = $2", Student_Name, Scholarship_Id)
 
 	if err != nil{

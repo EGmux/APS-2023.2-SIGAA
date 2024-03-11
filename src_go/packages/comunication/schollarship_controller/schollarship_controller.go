@@ -1,20 +1,24 @@
 package schollarshipcontroller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"sigaa.ufpe/packages/busines/facade"
 )
 
+
 func schollarship_Controller() *gin.Engine {
 
 	r := gin.Default()
+	var username string
 
 	r.LoadHTMLGlob("packages/view/Schollarship/*")
 
 	r.GET("/scholarship", func(ctx *gin.Context) {
-
+		username = ctx.Query("studentUser")
+		fmt.Println(username)
 		ctx.HTML(http.StatusOK, "schollarship_main.html", gin.H{
 			"title":                "Scholarships",
 			"title1":               "Teaching Scholarships",
@@ -31,9 +35,9 @@ func schollarship_Controller() *gin.Engine {
 	})
 
 
-
 	return r
 }
+
 
 func Set_Schollarship_Controller() {
 
