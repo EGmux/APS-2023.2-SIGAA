@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+<body>
+    <h1>Certification</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            {{ if .student.Enrolled}}
+                {{ .certification}}
+            {{ else }}
+                Student is not Enrolled
+            {{ end }}
+
+            <form method="GET", action="/certification/download">
+                <input type="submit" value="Download Certification">
+            </form>
+
+            <p></p>
+        </div>
+
+</body>
+</html>
