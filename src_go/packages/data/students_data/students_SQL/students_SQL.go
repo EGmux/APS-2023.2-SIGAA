@@ -41,7 +41,7 @@ func InsertUser(username string, password string) {
 
 func GetUser(username string) []student.Student {
 	db = singleton_db.Refer_DB()
-	rows, err := db.Query(context.Background(), "SELECT usr, pswrd, disciplines, deferral, enrolled, historic FROM students WHERE usr = $1",username)
+	rows, err := db.Query(context.Background(), "SELECT usr, pswrd, disciplines, deferral, enrolled, historic4 FROM students WHERE usr = $1",username)
 	if err != nil{
 		log.Fatal("Student_SQL.go: It was not possible to realize the querry")
 	}
@@ -51,14 +51,12 @@ func GetUser(username string) []student.Student {
 	for rows.Next() {
 		var user student.Student
 		var disciplines pq.StringArray
-		var historic pq.StringArray
-		err := rows.Scan(&user.User, &user.Password, &disciplines, &user.Deferral, &user.Enrolled, &historic)
+		err := rows.Scan(&user.User, &user.Password, &disciplines, &user.Deferral, &user.Enrolled, &user.Historic)
 		if err != nil{
 			fmt.Println(err)
 			log.Fatal("Student_SQL.go: Error during row scan")
 		}
 		user.Disciplines = disciplines
-		user.Historic = historic
 		users = append(users, user)
 	}
 	return users
@@ -133,4 +131,5 @@ func Update_Student_Deferral(username string){
 		fmt.Println(err)
 		log.Fatal("student_SQL.go: Error duting UPDATE Query")
 	}
+
 }

@@ -1,7 +1,6 @@
 package student
 
-import (
-)
+
 
 type Student struct {
 	User     string
@@ -9,5 +8,5 @@ type Student struct {
 	Disciplines []string
 	Deferral bool
 	Enrolled bool
-	Historic []string
+	Historic string
 }

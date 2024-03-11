@@ -18,7 +18,8 @@
             <p>Defferal: {{ .student.Deferral}} </p>
             <p>Enrollment: {{ .student.Enrolled}} </p>
             {{ if .student.Historic}}
-                <p>Historic: Student have historic</p>
+                <p>Historic: </p>
+                <p> {{.historic}} </p>
             {{ else }}
                 <p>Historic: Student does not have historic yet</p>
             {{ end }}
@@ -28,7 +29,7 @@
         </div>
         <div ><a href="/enrollment">Enrollment</a></div>
         <div><a href="/scholar">Apply to Schollarship</a></div>
-        <div><a href="/certification-enrollment">Issue Enrollment Certification</a></div>
+        <div><a href="/certification">Issue Enrollment Certification</a></div>
         <div><a href="/visualize-grade">Visualize Grades</a></div>
         <div><a href="/deferral">Deferral</a></div>
 </body>

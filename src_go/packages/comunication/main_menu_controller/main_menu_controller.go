@@ -3,7 +3,9 @@ package main_menu_controller
 import (
 	//"fmt"
 	"fmt"
+	"html/template"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	//"sigaa.ufpe/packages/busines/facade"
@@ -28,8 +30,11 @@ func main_menu_controller() *gin.Engine{
 		fmt.Println(student)
 		fmt.Println(student.Disciplines)
 		//ctx.String(http.StatusOK, "%s , %s",username, //student)
+		historic2 := strings.Replace(student.Historic, "\n", "<br>",-1)
+		historic := template.HTML(strings.Replace(historic2,"\t", "&nbsp;&nbsp;&nbsp;&nbsp;",-1))
 		ctx.HTML(http.StatusOK, "mainMenu.html", gin.H{
 			"student":student,
+			"historic":historic,
 		})
 	})
 
@@ -44,6 +49,10 @@ func main_menu_controller() *gin.Engine{
 
 	r.GET("/deferral", func(ctx *gin.Context) {
 		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8085/deferral?studentUser="+username)
+	})
+
+	r.GET("/certification", func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8086/certification?studentUser="+username)
 	})
 
 
