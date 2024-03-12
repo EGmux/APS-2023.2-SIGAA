@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+<body>
+    <h1>Grades</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            {{ if .student.Enrolled}}
+                
+            <p>Class    -   Assignment  -   grade</p>
+            <ul>
+                <li></li>
+                {{range .grades}}
+                <li>
+                    {{.Class}} - {{.Assignment}} - {{if .Grade}} {{.Grade}} {{else}} Grade not Assigned {{end}}
+                </li>
+                {{end}}
+            </ul>
+
+
+
+            {{ else }}
+
+                <p>Student is not Enrolled!</p>
+
+            {{ end }}
+
+            <p></p>
+        </div>
+
+</body>
+</html>

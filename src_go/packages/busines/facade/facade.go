@@ -3,10 +3,12 @@ package facade
 import (
 	deferralcontrol "sigaa.ufpe/packages/busines/deferral_control"
 	enrollmentcontrol "sigaa.ufpe/packages/busines/enrollment_control"
+	gradescontrol "sigaa.ufpe/packages/busines/grades_control"
 	login_control "sigaa.ufpe/packages/busines/login_control"
 	scholarshipcontrol "sigaa.ufpe/packages/busines/scholarship_control"
 	teachingscholarshipcontrol "sigaa.ufpe/packages/busines/scholarship_control/teaching_scholarship_control"
 	class "sigaa.ufpe/packages/data/class_data"
+	grades "sigaa.ufpe/packages/data/grades_data"
 	teachingscholarship "sigaa.ufpe/packages/data/scholarship_data/teachingScholarship"
 	student "sigaa.ufpe/packages/data/students_data"
 )
@@ -54,4 +56,12 @@ func Update_Student_Enrollment(student string, classes []class.Class){
 
 func Update_Student_Deferral(username string){
 	deferralcontrol.Update_Student_Deferral(username)
+}
+
+func Retake_Student_Enrollment(username string){
+	deferralcontrol.Retake_Student_Enrollment(username)
+}
+
+func Get_All_Grades_From_Student(username string) []grades.Grade{
+	return gradescontrol.Get_All_Grades_From_Student(username)
 }

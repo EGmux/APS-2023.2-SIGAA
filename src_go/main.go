@@ -3,10 +3,10 @@ package main
 import (
 	_ "github.com/joho/godotenv/autoload"
 
-	//enrollmentcontroller "sigaa.ufpe/packages/comunication/enrollment_controller"
 	certificationcontroller "sigaa.ufpe/packages/comunication/certification_controller"
 	deferralcontroller "sigaa.ufpe/packages/comunication/deferral_controller"
 	enrollmentcontroller "sigaa.ufpe/packages/comunication/enrollment_controller"
+	gradescontroller "sigaa.ufpe/packages/comunication/grades_controller"
 	"sigaa.ufpe/packages/comunication/login_controller"
 	"sigaa.ufpe/packages/comunication/main_menu_controller"
 	schollarshipcontroller "sigaa.ufpe/packages/comunication/schollarship_controller"
@@ -15,6 +15,7 @@ import (
 )
 
 var db = make(map[string]string)
+
 
 func main() {
 	channel := make(chan bool)
@@ -28,8 +29,8 @@ func main() {
 	go enrollmentcontroller.Set_Enrollment_Controller() //8084
 	go deferralcontroller.Set_Deferral_Controller() // 8085
 	go certificationcontroller.Set_certification_controller() //8086
+	go gradescontroller.Set_Grades_Controller()
 	// Listen and Server in 0.0.0.0:8080
-	//var student []student.Student = facade.GetUser("hugo")
-	//fmt.Println(student)
+
 	<-channel
 }

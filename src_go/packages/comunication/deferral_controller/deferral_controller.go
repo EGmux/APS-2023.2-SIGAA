@@ -32,6 +32,16 @@ func deferral_controller() *gin.Engine{
 		ctx.String(http.StatusAccepted, "Student: "+username+" have is now on deferral")
 	})
 
+	r.POST("/deferral/reEnroll", func(ctx *gin.Context) {
+		username := ctx.Query("studentUser")
+
+		facade.Retake_Student_Enrollment(username)
+
+		ctx.String(http.StatusAccepted, "Student: "+username+ "is reenrolled")
+
+
+	})
+
 	return r
 
 }
