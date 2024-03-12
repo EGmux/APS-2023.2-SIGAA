@@ -120,6 +120,8 @@ func Update_Student_Enrollment(username string, classes []class.Class){
 		log.Fatal("Student_SQL.go: Error during Exec query")
 	}
 
+	Insert_Student_Grades(username, classes)
+
 }
 
 func Update_Student_Deferral(username string){
@@ -130,6 +132,39 @@ func Update_Student_Deferral(username string){
 	if err != nil{
 		fmt.Println(err)
 		log.Fatal("student_SQL.go: Error duting UPDATE Query")
+	}
+
+}
+
+func Retake_Student_Enrollment(username string){
+	db = singleton_db.Refer_DB()
+
+	query := "UPDATE students SET deferral=false, enrolled=false WHERE usr='"+username+"'"
+	_, err := db.Exec(context.Background(), query)
+	if err != nil{
+		fmt.Println(err)
+		log.Fatal("student_SQL.go: Error during UPDATE Query")
+	}
+}
+
+func Insert_Student_Grades(username string, classes []class.Class){
+	db = singleton_db.Refer_DB()
+
+	for _, class := range(classes){
+
+		query := "INSERT INTO grades (class, assignment, student, grade) VALUES ('"+class.Name+"',"
+
+		for _, assignment := range(class.Assesment){
+			query_2 := ""
+			query_2 += "'"+assignment+"','"+ username+"',"+"NULL);"
+
+			_,err := db.Exec(context.Background(), query+query_2)
+			if err != nil{
+				fmt.Println(query)
+				fmt.Println(err)
+				log.Fatal("student_SQL.go: Error during Insert into Grades")
+			}
+		}
 	}
 
 }

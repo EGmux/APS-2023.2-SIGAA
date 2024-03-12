@@ -49,6 +49,12 @@ func enrollment_controller()*gin.Engine {
 		ctx.String(http.StatusOK, "enrollment apply!")
 	})
 
+	r.POST("/enrollment/main", func(ctx *gin.Context) {
+		//username = ctx.Query("studentUser")
+		fmt.Println("User received: ",username)
+		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8081/mainMenu?studentUser="+username)
+	})
+
 
 	return r
 }

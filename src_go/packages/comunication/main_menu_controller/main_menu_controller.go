@@ -55,6 +55,9 @@ func main_menu_controller() *gin.Engine{
 		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8086/certification?studentUser="+username)
 	})
 
+	r.GET("grades", func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusPermanentRedirect, "http://localhost:8087/grades?studentUser="+username)
+	})
 
 	return r
 

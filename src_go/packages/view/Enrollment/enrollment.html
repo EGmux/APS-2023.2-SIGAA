@@ -22,7 +22,9 @@
 
         <div>
             <h1>Select the Disciplines</h1>
-            
+            {{ if .student.Enrolled}}
+                <p>Student is already Enrolled</p>
+            {{ else }}
             <form action="/enrollment/apply?studentUser={{.username}}", method="POST">
                 <table border="1">
                     
@@ -51,6 +53,8 @@
                 </table>
                 <br>
                 <input type="submit" value="Send">
+                {{ end }}
+                
             </form>
         </div>
     

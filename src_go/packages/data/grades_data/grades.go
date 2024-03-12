@@ -3,6 +3,9 @@ package grades
 
 
 type Grade struct{
-	Grade string
+	Class string
+	Assignment string
+	Grade []string
+	Student string
 
 }

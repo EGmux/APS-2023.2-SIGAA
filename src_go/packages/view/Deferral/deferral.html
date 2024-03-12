@@ -21,10 +21,15 @@
         </div>
 
         {{ if .student.Deferral }}
-        <div> <p>The student is already on Deferral</p> </div>
+
+        <form method="POST", action="/deferral/reEnroll?studentUser={{.student.User}}">
+            <input type="submit" value="Undo Deferral">
+
+        </form>
+
         {{ else }}
             <form method="POST", action="/deferral/apply?studentUser={{.student.User}}">
-                <input type="submit" value="Deferal Enrollment" /> 
+                <input type="submit" value="Deferral Enrollment" /> 
 
             </form>
         {{ end }}
