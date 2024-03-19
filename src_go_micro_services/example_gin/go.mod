@@ -1,4 +1,4 @@
-module login_service
+module main
 
 go 1.22.1
 

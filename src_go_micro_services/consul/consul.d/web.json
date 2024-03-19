@@ -1,0 +1,16 @@
+{
+    "service": {
+        "name": "login",
+        "tags": [
+            "login"
+        ],
+        "port": 80,
+        "check": {
+            "args":[
+                "curl",
+                "localhost"
+            ],
+            "interval": "10s"
+        }
+    }
+}
