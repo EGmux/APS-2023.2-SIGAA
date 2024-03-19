@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  consul_server:
+    container_name: server
+    image: consul
+    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+    ports:
+      - "8300:8300"
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+    links:
+      - gin-web-login
+    networks:
+      - consul
+  
+
+  gin-web-login:
+    image: gin-web:1.0.1
