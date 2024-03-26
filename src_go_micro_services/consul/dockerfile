@@ -1,0 +1,24 @@
+# Use a imagem base do Alpine Linux
+FROM alpine:latest
+
+# Instale o Consul (aqui estamos usando a versão 1.11.1, mas você pode ajustar para a versão que preferir)
+RUN apk add --no-cache curl && \
+    curl -Lo /tmp/consul.zip https://releases.hashicorp.com/consul/1.11.1/consul_1.11.1_linux_amd64.zip && \
+    unzip /tmp/consul.zip -d /bin && \
+    rm -f /tmp/consul.zip && \
+    apk del curl
+
+# Crie o diretório onde o Consul irá armazenar seus dados persistentes
+RUN mkdir /consul-data
+
+# Exponha a porta que o Consul utiliza para comunicação de cluster
+EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 8501 8600
+
+# Copie o arquivo de configuração do agente Consul para o contêiner
+COPY config.json /etc/consul.d/config.json
+
+# Defina o diretório de trabalho para /consul-data
+WORKDIR /consul-data
+
+# Inicie o agente Consul
+CMD ["consul", "agent", "-config-dir=/etc/consul.d", "-dev"]

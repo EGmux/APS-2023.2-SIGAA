@@ -1,20 +1,82 @@
 version: '3'
 
 services:
-  consul_server:
-    container_name: server
-    image: consul
-    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+
+  go_db:
+    container_name: go_db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    hostname: go_db
+
+
+  loginservice:
+    container_name: loginservice
+    build: 
+      context: ./login_service
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: "host=go_db user=postgres password=postgres dbname=postgres sslmode=disable"
+      CONSUL_HOST: consul
+      CONSUL_PORT: "8500"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./login_service:/go/src/app
+    depends_on:
+      - go_db
+      - consul
+    hostname: loginservice
+
+
+  scholarshipservice:
+    container_name: scholarshipservice
+    build:
+      context: ./scholarship_service
+      dockerfile: dockerfile
+    environment:
+      DATABASE_URL: "host=go_db user=postgres password=postgres dbname=postgres sslmode=disable"
+      CONSUL_HOST: consul
+      CONSUL_PORT: "8500"
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./scholarship_service:/go/src/app
+    depends_on:
+      - go_db
+      - consul
+    hostname: scholarshipservice
+
+  gateway:
+    build: 
+      context: ./gateway
+      dockerfile: Dockerfile
+    environment:
+      CONSUL_HOST: consul
+      CONSUL_PORT: "8500"
+    ports:
+      - "8079:8079"
+    volumes:
+      - ./gateway:/go/src/app
+    depends_on:
+      - go_db
+      - consul
+
+  consul:
+    container_name: consul
+    build:
+      context: ./consul
+      dockerfile: dockerfile
     ports:
       - "8300:8300"
-      - "8400:8400"
       - "8500:8500"
       - "8600:8600"
-    links:
-      - gin-web-login
-    networks:
-      - consul
-  
+    hostname: consul
 
-  gin-web-login:
-    image: gin-web:1.0.1
+
+volumes:
+  pgdata: {}

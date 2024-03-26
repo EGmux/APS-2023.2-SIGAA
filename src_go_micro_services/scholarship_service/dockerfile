@@ -16,7 +16,7 @@ RUN go build -o main .
 
 
 # Exponha a porta que o aplicativo Gin estará escutando
-EXPOSE 8080
+EXPOSE 8081
 
 # Comando para executar o aplicativo quando o contêiner for iniciado
 CMD ["./main"]
