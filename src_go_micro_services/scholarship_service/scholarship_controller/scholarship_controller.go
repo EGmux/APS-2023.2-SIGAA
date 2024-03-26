@@ -6,23 +6,23 @@ import (
 	"net/http"
 	"os"
 	"scholarship/facade"
-	"scholarship/student"
+	"scholarship/utils/student"
 
 	"github.com/gin-gonic/gin"
 	consul "github.com/hashicorp/consul/api"
 )
 
+func scholarshipcontroller() {
 
-func scholarshipcontroller(){
-
+	var username string
 	r := gin.Default()
 
-	r.LoadHTMLFiles("./view/*")
+	r.LoadHTMLGlob("./view/*")
 
 	r.GET("/scholarship", func(ctx *gin.Context) {
 		var students []student.Student
-		username := ctx.Query("studentUser")
-		log.Print("Username received: ",username)
+		username = ctx.Query("studentUser")
+		log.Print("Username received: ", username)
 		students = facade.GetUser(username)
 		var student student.Student = students[0]
 		fmt.Println(student)
@@ -32,9 +32,39 @@ func scholarshipcontroller(){
 		//historic := template.HTML(strings.Replace(historic2,"\t", "&nbsp;&nbsp;&nbsp;&nbsp;",-1))
 		historic := "This is a sample historic"
 		ctx.HTML(http.StatusOK, "mainMenu.html", gin.H{
-			"student":student,
-			"historic":historic,
+			"student":  student,
+			"historic": historic,
 		})
+	})
+
+	r.GET("/scholar", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "schollarship_main.html", gin.H{
+			"title":                "Scholarships",
+			"title1":               "Teaching Scholarships",
+			"teachingScholarships": facade.GetAllTeachingScholarships(),
+		})
+	})
+
+	r.GET("/teach", func(ctx *gin.Context) {
+
+		ctx.HTML(http.StatusOK, "teachingScholarship.html", gin.H{
+			"title":                "Teaching Scholarships",
+			"teachingScholarships": facade.GetAvailableTeachingScholarships(),
+		})
+	})
+
+	r.POST("/teach/submit", func(ctx *gin.Context) {
+		Id := ctx.PostForm("Id")
+		User := ctx.PostForm("User")
+
+		//Int_Id, err := strconv.Atoi(Id)
+		//if err != nil{
+		//	panic(err)
+		//}
+		fmt.Println(Id, User)
+		facade.Apply_Student_To_Teaching_Scholarship(User, Id)
+
+		ctx.String(http.StatusOK, "Bind bem sucesdido, Id recebido: %v", Id)
 	})
 
 	registerServiceWithConsul()
@@ -42,9 +72,9 @@ func scholarshipcontroller(){
 	r.Run(":8081")
 }
 
-func registerServiceWithConsul(){
+func registerServiceWithConsul() {
 	config := consul.DefaultConfig()
-	config.Address = os.Getenv("CONSUL_HOST")+":"+os.Getenv("CONSUL_PORT")
+	config.Address = os.Getenv("CONSUL_HOST") + ":" + os.Getenv("CONSUL_PORT")
 	fmt.Println(config.Address)
 
 	consulClient, err := consul.NewClient(config)
@@ -66,10 +96,9 @@ func registerServiceWithConsul(){
 
 	fmt.Println("Service registered with Consul")
 
-
 }
 
-func Set_scholarship_controller(){
+func Set_scholarship_controller() {
 
 	scholarshipcontroller()
 }
