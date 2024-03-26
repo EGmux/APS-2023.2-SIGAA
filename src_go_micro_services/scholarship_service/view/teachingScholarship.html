@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+
+    <div>
+        
+       <div>
+        <h1> {{ .title}} </h1>
+        <h2> {{.title1}} </h1>
+        <p>ID   -   Value   -   Class   -   Semester    -   Professor</p>
+        <ul>
+            <li></li>
+            {{ range .teachingScholarships}}
+            <li> {{ .Scholarship.Id}} - {{ .Scholarship.Value}} - {{ .Class.Name}} - {{ .Semester}} - {{ .Professor.Name}} </li>
+            {{end}}
+
+        </ul>
+       </div>
+
+
+
+       <div>
+        <form action="/teach/submit" method="POST">
+            <div><label for="Id">Scholarship ID</label><input name="Id"></div>
+            <div><label for="User">User</label><input name="User"></div>
+            <div><button type="submit">Apply</button></div>
+ 
+        </form>
+       </div>
+    </div>
+
+    <div><a href="/scholarship">Return</a></div>
+
+</body>
+</html>

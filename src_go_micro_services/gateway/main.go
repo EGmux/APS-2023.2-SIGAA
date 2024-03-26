@@ -28,6 +28,7 @@ func main() {
 		studentUser := c.Query("studentUser")
 		serviceName := c.Param("name")
 		fmt.Print(serviceName)
+		fmt.Println("Student Received: ", studentUser)
 		// Consulta o serviço no Consul
 		entries, _, err := consulClient.Health().Service(serviceName, "", true, nil)
 		if err != nil {
@@ -38,9 +39,11 @@ func main() {
 
 		if len(entries) > 0 {
 			service := entries[0].Service
-			if service.ID == "scholarshipservice"{
+			if service.ID == "scholarship"{
 				fmt.Println(service.Address, service.Port, service.ID)
-				c.Redirect(http.StatusMovedPermanently, "http://"+service.Address+":"+strconv.Itoa(service.Port)+"/"+service.ID+"?studentUser="+studentUser)
+				query := "http://"+service.Address+":"+strconv.Itoa(service.Port)+"/"+service.ID+"?studentUser="+studentUser
+				fmt.Println(query)
+				c.Redirect(http.StatusMovedPermanently, query)
 				return
 			}
 			/*c.JSON(200, gin.H{

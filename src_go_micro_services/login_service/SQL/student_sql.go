@@ -18,6 +18,7 @@ type Student struct {
 	Enrolled bool
 	Historic string
 }
+
 type Class struct {
 	Name        string
 	Capacity    int
@@ -46,17 +47,6 @@ func InitDB(){
 	if err != nil {
 		fmt.Println("Fail")
 		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
-	}
-	_, err = db.Exec(context.Background(), "CREATE TABLE IF NOT EXISTS students (usr TEXT, pswrd TEXT, disciplines TEXT[], deferral boolean, enrolled boolean)")
-	if err != nil{
-		fmt.Println(err)
-		log.Fatal("Error durinc student table creation", err)
-	}
-
-	_, err = db.Exec(context.Background(), "INSERT INTO students (usr, pswrd, disciplines, deferral, enrolled) VALUES ('hugo', '123', ARRAY['gdi','plc'], false, false),('enzo','456',ARRAY['gdi','plc','ess'],false,false);")
-	if err != nil{
-		fmt.Println(err)
-		log.Fatal("Error during student table population", err)
 	}
 
 }
