@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+<body>
+    <h1>Main Menu</h1>
+        <div>
+            <h2>Student Info</h1>
+            <p>Username: {{ .student.User}} </p>
+            {{ if .student.Disciplines}}
+                <p>Disciplines: {{.student.Disciplines}} </p>   
+            {{ else }}
+                <p>Disciplines: Student is not Enrolled</p>
+            {{ end }}
+            <p>Defferal: {{ .student.Deferral}} </p>
+            <p>Enrollment: {{ .student.Enrolled}} </p>
+            {{ if .student.Historic}}
+                <p>Historic: </p>
+                <p> {{.historic}} </p>
+            {{ else }}
+                <p>Historic: Student does not have historic yet</p>
+            {{ end }}
+
+
+            <p></p>
+        </div>
+        <div ><a href="/enrollment">Enrollment</a></div>
+        <div><a href="/scholar">Apply to Schollarship</a></div>
+        <div><a href="/certification">Issue Enrollment Certification</a></div>
+        <div><a href="/grades">Visualize Grades</a></div>
+        <div><a href="/deferral">Deferral</a></div>
+</body>
+</html>

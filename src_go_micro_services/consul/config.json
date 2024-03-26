@@ -1,0 +1,7 @@
+{
+    "data_dir": "/consul-data",
+    "ui": true,
+    "server": true,
+    "client_addr": "0.0.0.0",
+    "bind_addr": "0.0.0.0"
+}
