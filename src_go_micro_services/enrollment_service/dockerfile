@@ -1,0 +1,22 @@
+# Use a imagem oficial do Go como base
+FROM golang:1.22.1-alpine AS builder
+
+
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copia o restante dos arquivos do código-fonte para o diretório de trabalho
+COPY . .
+
+# Compila o projeto Go
+RUN go get -d -v ./...
+
+
+RUN go build -o main .
+
+
+# Exponha a porta que o aplicativo Gin estará escutando
+EXPOSE 8082
+
+# Comando para executar o aplicativo quando o contêiner for iniciado
+CMD ["./main"]
