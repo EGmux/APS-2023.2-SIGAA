@@ -7,6 +7,7 @@ import (
 	"os"
 	"scholarship/facade"
 	"scholarship/utils/student"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	consul "github.com/hashicorp/consul/api"
@@ -66,6 +67,29 @@ func scholarshipcontroller() {
 
 		ctx.String(http.StatusOK, "Bind bem sucesdido, Id recebido: %v", Id)
 	})
+
+	r.GET("/enroll", func(ctx *gin.Context) {
+		config := consul.DefaultConfig()
+		config.Address = os.Getenv("CONSUL_HOST")+":"+os.Getenv("CONSUL_PORT")
+		consulClient, err := consul.NewClient(config)
+		if err != nil{
+			log.Fatal("Error trying to create a consul client: ", err)
+		}
+
+		entries, _, err := consulClient.Health().Service("gateway", "", true, nil)
+		if err != nil{
+			ctx.JSON(500, gin.H{
+				"error":"Error trying to consul a CONSUL service",
+				"err": err})
+				return
+		}
+		if len(entries) > 0{
+			service := entries[0].Service
+			ctx.Redirect(http.StatusMovedPermanently, "http://"+service.Address+":"+strconv.Itoa(service.Port)+"/service/enrollment?studentUser="+username)
+			return
+		}
+	})
+
 
 	registerServiceWithConsul()
 

@@ -46,6 +46,14 @@ func main() {
 				c.Redirect(http.StatusMovedPermanently, query)
 				return
 			}
+			if service.ID == "enrollment"{
+				fmt.Println("---------- Redirectiong to Enrollment service")
+				fmt.Println(service.Address, service.Port, service.ID)
+				query := "http://"+service.Address+":"+strconv.Itoa(service.Port)+"/"+service.ID+"?studentUser="+studentUser
+				fmt.Println(query)
+				c.Redirect(http.StatusMovedPermanently, query)
+				return
+			}
 			/*c.JSON(200, gin.H{
 				"service_name": service.Service,
 				"address":      service.Address,
